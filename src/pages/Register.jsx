@@ -19,7 +19,7 @@ import { toast } from "@/components/ui/use-toast";
 import { isNativeApp } from "@/lib/isNativeApp";
 import AuthProgress from "@/components/auth/AuthProgress";
 import AuthCelebration from "@/components/auth/AuthCelebration";
-import AppealForm from "@/components/AppealForm";
+
 import PasswordField from "@/components/auth/PasswordField";
 import { storePendingReferralCode, getPendingReferralCode, extractReferralCodeFromURL } from "@/lib/referral";
 import { pendingInvitation, influencerCall, claimInvitation } from '@/lib/influencers';
@@ -592,7 +592,21 @@ export default function Register() {
           )}
         </div>
       </form>
-      <AppealForm open={showAppeal} onClose={() => setShowAppeal(false)} blockType="signup" reasonShown={blockReason} />
+      {showAppeal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-sm rounded-2xl bg-card p-6 text-center">
+            <p className="font-heading text-base font-700">Sign-up blocked</p>
+            <p className="mt-2 text-sm text-muted-foreground">{blockReason}</p>
+            <button
+              type="button"
+              onClick={() => setShowAppeal(false)}
+              className="mt-4 rounded-xl bg-olo px-5 py-2 text-sm font-semibold text-white"
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      )}
     </AuthLayout>
     </RegisterSessionGate>
   );

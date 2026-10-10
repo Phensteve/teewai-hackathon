@@ -1,89 +1,81 @@
-import LandingNav from '@/components/landing/LandingNav';
-import LandingHero from '@/components/landing/LandingHero';
-import { useState, useEffect, Suspense, lazy } from 'react';
-import { unrufld } from '@/api/unrufldClient';
-import { isNativeApp } from '@/lib/isNativeApp';
-import { lazyWithRetry } from '@/lib/lazyWithRetry';
-import LandingConfidenceStrip from '@/components/landing/LandingConfidenceStrip';
-import LiquidCursor from '@/components/landing/LiquidCursor';
-
-// Zoah-inspired life strips — lazy-loaded off the critical path.
-// The living underwater background is a heavy SVG (11 vines + ~20 animated
-// layers). It's fixed behind everything, so deferring it off the critical
-// path lets the hero paint first; the dark page-underwater-bg gradient
-// covers the gap until the vines arrive a moment later.
-const LivingBackground = lazyWithRetry(() => import('@/components/landing/LivingBackground'));
-
-// Below-the-fold sections are split into their own chunks so the hero paints
-// with the smallest possible initial JS bundle (better LCP / TBT on slow
-// connections). Each loads on demand as the user scrolls into it.
-const LandingPhoneShowcase = lazyWithRetry(() => import('@/components/landing/LandingPhoneShowcase'));
-const LandingScanDemo = lazyWithRetry(() => import('@/components/landing/LandingScanDemo'));
-const LandingHowItWorks = lazyWithRetry(() => import('@/components/landing/LandingHowItWorks'));
-const LandingFeatures = lazyWithRetry(() => import('@/components/landing/LandingFeatures'));
-const LandingFoodScan = lazyWithRetry(() => import('@/components/landing/LandingFoodScan'));
-const LandingRareColor = lazyWithRetry(() => import('@/components/landing/LandingRareColor'));
-const LandingGoalFeedback = lazyWithRetry(() => import('@/components/landing/LandingGoalFeedback'));
-const LandingPricing = lazyWithRetry(() => import('@/components/landing/LandingPricing'));
-const LandingDentistPortal = lazyWithRetry(() => import('@/components/landing/LandingDentistPortal'));
-const LandingFAQ = lazyWithRetry(() => import('@/components/landing/LandingFAQ'));
-const LandingTestimonials = lazyWithRetry(() => import('@/components/landing/LandingTestimonials'));
-const LandingCTA = lazyWithRetry(() => import('@/components/landing/LandingCTA'));
-const LandingGetApp = lazyWithRetry(() => import('@/components/landing/LandingGetApp'));
-const LandingSeabed = lazyWithRetry(() => import('@/components/landing/LandingSeabed'));
-const LandingFooter = lazyWithRetry(() => import('@/components/landing/LandingFooter'));
+import { Link } from 'react-router-dom';
+import { Camera, Sparkles, ShieldCheck, ArrowRight } from 'lucide-react';
+import Logo from '@/components/Logo';
 
 export default function Landing() {
-  // In the APK the landing page is skipped: signed-in users go straight to
-  // their dashboard, everyone else lands on the signup page.
-  const native = isNativeApp();
-  const [nativeTarget, setNativeTarget] = useState(null);
-
-  useEffect(() => {
-    if (!native) return;
-    unrufld.auth.isAuthenticated()
-      .then((authed) => setNativeTarget(authed ? '/dashboard' : '/register'))
-      .catch(() => setNativeTarget('/register'));
-  }, [native]);
-
-  if (native) {
-    if (nativeTarget) {
-      // Full-page redirect — avoids <Navigate> Router context issues during
-      // the async auth check. This is a top-level redirect anyway (landing →
-      // dashboard or register), so a full page load is the right behavior.
-      window.location.href = nativeTarget;
-    }
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="w-10 h-10 border-4 border-muted border-t-olo rounded-full animate-spin" />
-      </div>
-    );
-  }
-
   return (
-    <div className="relative page-underwater-bg overflow-x-clip">
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <Suspense fallback={null}><LivingBackground /></Suspense>
+    <div className="relative min-h-screen overflow-hidden bg-background">
+      {/* Ambient glow */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-olo/10 blur-[120px]" />
+
+      <div className="relative mx-auto flex min-h-screen max-w-3xl flex-col px-4">
+        {/* Nav */}
+        <header className="flex items-center justify-between py-6">
+          <div className="flex items-center gap-2">
+            <Logo size={32} />
+            <span className="font-heading text-xl font-700 tracking-tight">teewai</span>
+          </div>
+          <Link
+            to="/login"
+            className="rounded-xl border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+          >
+            Sign in
+          </Link>
+        </header>
+
+        {/* Hero */}
+        <div className="flex flex-1 flex-col items-center justify-center py-16 text-center">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-olo/20 bg-olo/5 px-4 py-1.5 text-caption font-medium text-olo">
+            <Sparkles className="h-3.5 w-3.5" />
+            AI dental scan in seconds
+          </div>
+          <h1 className="font-heading text-4xl font-700 leading-tight tracking-tight sm:text-5xl">
+            See your smile
+            <br />
+            <span className="text-olo">in a whole new light</span>
+          </h1>
+          <p className="mt-5 max-w-md text-body text-muted-foreground">
+            Snap a photo of your teeth and teewai's AI scores your whiteness and dental health, then builds a real care plan.
+          </p>
+
+          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
+            <Link
+              to="/register"
+              className="inline-flex items-center gap-2 rounded-xl bg-olo px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-olo/20 transition-transform hover:scale-105"
+            >
+              Get started free
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              to="/login"
+              className="inline-flex items-center gap-2 rounded-xl border border-border px-6 py-3 text-sm font-medium transition-colors hover:bg-muted"
+            >
+              I have an account
+            </Link>
+          </div>
+
+          {/* Feature row */}
+          <div className="mt-16 grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
+            {[
+              { icon: Camera, title: 'Snap a photo', desc: 'A quick close-up is all it takes.' },
+              { icon: Sparkles, title: 'AI analysis', desc: 'Whiteness, health and a care plan.' },
+              { icon: ShieldCheck, title: 'Private', desc: 'Your photos stay yours, always.' },
+            ].map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="rounded-2xl border border-border bg-card p-5 text-left">
+                <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-olo/10 text-olo">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <p className="font-heading text-sm font-600">{title}</p>
+                <p className="mt-1 text-caption text-muted-foreground">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <footer className="py-8 text-center text-label text-muted-foreground">
+          teewai is a wellness companion, not a medical device.
+        </footer>
       </div>
-      <LiquidCursor />
-      <LandingNav />
-      <LandingHero />
-      <LandingConfidenceStrip />
-      <Suspense fallback={null}><LandingPhoneShowcase /></Suspense>
-      <Suspense fallback={null}><LandingScanDemo /></Suspense>
-      <Suspense fallback={null}><LandingHowItWorks /></Suspense>
-      <Suspense fallback={null}><LandingFeatures /></Suspense>
-      <Suspense fallback={null}><LandingFoodScan /></Suspense>
-      <Suspense fallback={null}><LandingRareColor /></Suspense>
-      <Suspense fallback={null}><LandingGoalFeedback /></Suspense>
-      <Suspense fallback={null}><LandingTestimonials /></Suspense>
-      <Suspense fallback={null}><LandingPricing /></Suspense>
-      <Suspense fallback={null}><LandingDentistPortal /></Suspense>
-      <Suspense fallback={null}><LandingFAQ /></Suspense>
-      <Suspense fallback={null}><LandingCTA /></Suspense>
-      <Suspense fallback={null}><LandingGetApp /></Suspense>
-      <Suspense fallback={null}><LandingSeabed /></Suspense>
-      <Suspense fallback={null}><LandingFooter /></Suspense>
     </div>
   );
 }
