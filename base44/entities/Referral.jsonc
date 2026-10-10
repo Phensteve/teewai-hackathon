@@ -1,0 +1,123 @@
+{
+  "name": "Referral",
+  "type": "object",
+  "title": "Referral",
+  "description": "A referral relationship between a teewai user (referrer) and an invited user. The invited user must complete a scan before the referrer earns the reward (\u20a650 per successful referral). Anti-exploitation: create and update are restricted to the invited user only (the person who signed up with the code), preventing referrers from fabricating or modifying referral records to credit themselves.",
+  "properties": {
+    "referrer_user_id": {
+      "type": "string",
+      "title": "Referrer User ID"
+    },
+    "referrer_code": {
+      "type": "string",
+      "title": "Referral Code Used"
+    },
+    "invited_user_id": {
+      "type": "string",
+      "title": "Invited User ID"
+    },
+    "invited_email": {
+      "type": "string",
+      "title": "Invited User Email",
+      "format": "email"
+    },
+    "invited_username": {
+      "type": "string",
+      "title": "Invited Username"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "pending",
+        "scanned",
+        "rewarded",
+        "expired"
+      ],
+      "default": "pending",
+      "description": "pending = signed up but hasn't scanned; scanned = completed first scan; rewarded = referrer credited; expired = referrer's subscription lapsed."
+    },
+    "scan_completed_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Scan Completed Date"
+    },
+    "reward_amount": {
+      "type": "number",
+      "title": "Reward Amount (\u20a6)",
+      "default": 50
+    },
+    "reward_credited_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Reward Credited Date"
+    },
+    "reward_pair_id": {
+      "type": "string",
+      "title": "Reward Pair ID"
+    },
+    "blocked_reason": {
+      "type": "string",
+      "title": "Blocked Reason",
+      "description": "If the referral was blocked by anti-exploitation checks (self_referral, same_device, circular), the reason is recorded here. Blocked referrals are not credited."
+    }
+  },
+  "required": [
+    "referrer_user_id",
+    "invited_user_id",
+    "status"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "$and": [
+            {
+              "created_by_id": "{{user.id}}"
+            },
+            {
+              "data.invited_user_id": "{{user.id}}"
+            }
+          ]
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.referrer_user_id": "{{user.id}}"
+        },
+        {
+          "data.invited_user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.invited_user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

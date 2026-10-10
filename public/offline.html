@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>teewai — No internet connection</title>
+    <meta name="theme-color" content="#0a1c1f" />
+    <style>
+      /* Teewai offline page — self-contained (served with no connection).
+         Mirrors the app's dark-teal hero language: olo-deep background,
+         olo accent, soft radial glow, calm line icon (not a warning triangle). */
+      :root {
+        --olo: 174 100% 42%;
+        --olo-deep: 182 85% 7%;
+        --olo-glow: 174 100% 50%;
+        --fg: 168 40% 96%;
+        --muted: 168 20% 65%;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+      html, body {
+        height: 100%;
+        overscroll-behavior: none;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background: hsl(var(--olo-deep));
+        color: hsl(var(--fg));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100dvh;
+        padding: 2rem 1.5rem;
+        padding-top: calc(2rem + env(safe-area-inset-top));
+        padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      /* Soft radial glow — the same ambient light as the app's hero */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at 50% 35%, hsl(var(--olo-glow) / 0.12), transparent 60%);
+        pointer-events: none;
+      }
+      .card {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 24rem;
+        animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      @keyframes fade-up {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .card { animation: none; }
+      }
+      /* Calm line icon in a soft olo ring — not a yellow warning triangle */
+      .icon-wrap {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 1.75rem;
+        background: hsl(var(--olo) / 0.10);
+        border: 1px solid hsl(var(--olo) / 0.22);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.75rem;
+        box-shadow: 0 0 60px -12px hsl(var(--olo-glow) / 0.4);
+      }
+      .icon-wrap svg {
+        width: 2.5rem;
+        height: 2.5rem;
+        stroke: hsl(var(--olo));
+        stroke-width: 1.5;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .logo-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+      .logo-mark {
+        width: 1.75rem;
+        height: 1.75rem;
+        border-radius: 0.5rem;
+        background: hsl(var(--olo));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 24px -6px hsl(var(--olo-glow) / 0.6);
+      }
+      .logo-mark svg { width: 1rem; height: 1rem; fill: hsl(var(--olo-deep)); }
+      .logo-name {
+        font-weight: 700;
+        font-size: 0.95rem;
+        letter-spacing: -0.01em;
+      }
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 0.625rem;
+      }
+      p {
+        font-size: 0.9375rem;
+        line-height: 1.5;
+        color: hsl(var(--muted));
+        margin-bottom: 2rem;
+      }
+      /* Refresh button — matches the app's primary button: olo fill, rounded */
+      .refresh-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: hsl(var(--olo));
+        color: hsl(var(--olo-deep));
+        font-weight: 600;
+        font-size: 0.9375rem;
+        padding: 0.75rem 1.75rem;
+        border-radius: 0.875rem;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+        box-shadow: 0 0 40px -10px hsl(var(--olo-glow) / 0.5);
+        -webkit-appearance: none;
+        appearance: none;
+      }
+      .refresh-btn:hover { transform: scale(1.04); }
+      .refresh-btn:active { transform: scale(0.98); }
+      .refresh-btn svg { width: 1.0625rem; height: 1.0625rem; stroke-width: 2; }
+      .refresh-btn.spinning svg { animation: spin 0.8s linear infinite; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) {
+        .refresh-btn.spinning svg { animation: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="logo-row">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M7 4 Q12 1 17 4 Q19 8 18 13 Q17 20 14 20 Q13 20 12.5 16 Q12 13 11.5 16 Q11 20 10 20 Q7 20 6 13 Q5 8 7 4 Z"/></svg>
+        </span>
+        <span class="logo-name">teewai</span>
+      </div>
+
+      <div class="icon-wrap" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M2 8.5 Q12 2 22 8.5" />
+          <path d="M5 12.5 Q12 8 19 12.5" />
+          <path d="M9 16 Q12 14 15 16" />
+          <line x1="12" y1="20" x2="12.01" y2="20" />
+          <line x1="3.5" y1="3.5" x2="20.5" y2="20.5" />
+        </svg>
+      </div>
+
+      <h1>No internet connection</h1>
+      <p>Check your connection and try again.</p>
+
+      <button class="refresh-btn" id="refresh" onclick="retry()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+          <path d="M21 3v6h-6" />
+        </svg>
+        <span>Refresh</span>
+      </button>
+    </div>
+
+    <script>
+      function retry() {
+        var btn = document.getElementById('refresh');
+        if (btn) btn.classList.add('spinning');
+        // Hard reload — re-fetches the app shell. If the connection is back,
+        // the service worker serves the live app; if still offline, it serves
+        // this page again from cache.
+        window.location.reload();
+      }
+    </script>
+  </body>
+</html>

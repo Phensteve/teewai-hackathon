@@ -1,0 +1,58 @@
+{
+  "name": "FreeScanUsage",
+  "type": "object",
+  "title": "Free Scan Usage",
+  "properties": {
+    "key_type": {
+      "type": "string",
+      "enum": [
+        "device",
+        "ip"
+      ],
+      "title": "Key Type"
+    },
+    "key_value": {
+      "type": "string",
+      "title": "Device hash or IP"
+    },
+    "ip_address": {
+      "type": "string",
+      "title": "IP Address"
+    },
+    "scans_used": {
+      "type": "number",
+      "title": "Scans Used",
+      "default": 0
+    },
+    "last_scan": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Last Scan Date"
+    }
+  },
+  "required": [
+    "key_value"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

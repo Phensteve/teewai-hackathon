@@ -1,0 +1,128 @@
+{
+  "name": "Tip",
+  "type": "object",
+  "title": "Dashboard Tip",
+  "description": "Admin-managed dental tip card. Shown on the dashboard (a random per-user daily pick) and browsable in the Tip History list as an accordion. Each tip has a collapsed teaser strip and an expanded card with body text, a mini data visualization, and a themed illustration. Admins verify tips and set a research-confidence percentage; only active tips are shown to users.",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "title": "Slug",
+      "description": "Stable identifier used for seeding and de-duplication (e.g. 'purple-strip')."
+    },
+    "title": {
+      "type": "string",
+      "title": "Title",
+      "description": "The tip headline shown in both collapsed and expanded states."
+    },
+    "teaser": {
+      "type": "string",
+      "title": "Teaser",
+      "description": "Short one-line text shown when the tip is collapsed. Expands into the full body when opened."
+    },
+    "body": {
+      "type": "string",
+      "title": "Body",
+      "description": "Full educational content shown when the tip is expanded."
+    },
+    "category": {
+      "type": "string",
+      "title": "Category",
+      "enum": [
+        "info",
+        "lifestyle"
+      ],
+      "default": "info",
+      "description": "info = educational dental knowledge, lifestyle = daily care habit."
+    },
+    "chart_type": {
+      "type": "string",
+      "title": "Chart Type",
+      "enum": [
+        "none",
+        "plaque_buildup",
+        "brush_vs_stain",
+        "water_drymouth",
+        "sugar_timeline"
+      ],
+      "default": "none",
+      "description": "Which mini data visualization to render in the expanded card."
+    },
+    "chart_label": {
+      "type": "string",
+      "title": "Chart Accessible Label",
+      "description": "aria-label describing the chart for screen readers. Required when chart_type is not 'none'."
+    },
+    "illustration": {
+      "type": "string",
+      "title": "Illustration",
+      "enum": [
+        "none",
+        "tooth_yellow",
+        "tooth_violet",
+        "tooth_wipe",
+        "tooth_clean",
+        "tooth_stain",
+        "tooth_brush"
+      ],
+      "default": "none",
+      "description": "Which themed tooth illustration to render in the expanded card."
+    },
+    "sort_order": {
+      "type": "number",
+      "title": "Sort Order",
+      "default": 0,
+      "description": "Lower numbers appear first in the admin list."
+    },
+    "active": {
+      "type": "boolean",
+      "title": "Active",
+      "default": true,
+      "description": "Only active tips appear on the dashboard and tip history. Inactive tips are hidden but retained."
+    },
+    "audience": {
+      "type": "string",
+      "title": "Audience",
+      "enum": [
+        "all",
+        "patient",
+        "dentist"
+      ],
+      "default": "all",
+      "description": "Which user role sees this tip. 'all' = everyone."
+    },
+    "verified": {
+      "type": "boolean",
+      "title": "Verified",
+      "default": false,
+      "description": "True once an admin has reviewed and verified the tip's dental accuracy."
+    },
+    "confidence": {
+      "type": "number",
+      "title": "Research Confidence (%)",
+      "default": 0,
+      "description": "Admin-set research-confidence percentage (0-100) reflecting how well-supported the tip is by established dental science."
+    }
+  },
+  "required": [
+    "title",
+    "teaser"
+  ],
+  "rls": {
+    "read": null,
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

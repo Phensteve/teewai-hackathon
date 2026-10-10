@@ -1,0 +1,158 @@
+{
+  "name": "DentistSubscription",
+  "type": "object",
+  "title": "Dentist Subscription",
+  "properties": {
+    "dentist_user_id": {
+      "type": "string",
+      "title": "Dentist User ID"
+    },
+    "dentist_profile_id": {
+      "type": "string",
+      "title": "Dentist Profile ID"
+    },
+    "patient_slots": {
+      "type": "number",
+      "title": "Patient Slots",
+      "description": "Maximum active patients the dentist can add under this plan.",
+      "default": 30
+    },
+    "billing_period": {
+      "type": "string",
+      "title": "Billing Period",
+      "enum": [
+        "monthly",
+        "quarterly",
+        "half_yearly",
+        "yearly"
+      ],
+      "default": "monthly"
+    },
+    "period_months": {
+      "type": "number",
+      "title": "Period Length (months)",
+      "description": "How many months the period covers: 1, 3, 6, or 12.",
+      "default": 1
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Period Start"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Period End"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "active",
+        "expired",
+        "canceled"
+      ],
+      "default": "active"
+    },
+    "amount": {
+      "type": "number",
+      "title": "Amount Paid (NGN)"
+    },
+    "per_patient_monthly": {
+      "type": "number",
+      "title": "Effective Per-Patient Monthly Rate (NGN)"
+    },
+    "payment_reference": {
+      "type": "string",
+      "title": "Payment Reference"
+    },
+    "purchases": {
+      "type": "array",
+      "title": "Purchase History",
+      "items": {
+        "type": "object",
+        "properties": {
+          "slots": {
+            "type": "number",
+            "title": "Slots"
+          },
+          "period": {
+            "type": "string",
+            "title": "Period"
+          },
+          "amount": {
+            "type": "number",
+            "title": "Amount (NGN)"
+          },
+          "reference": {
+            "type": "string",
+            "title": "Payment Reference"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "dentist_user_id",
+    "patient_slots",
+    "billing_period"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.dentist_user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

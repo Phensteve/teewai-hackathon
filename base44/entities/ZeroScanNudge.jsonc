@@ -1,0 +1,52 @@
+{
+  "name": "ZeroScanNudge",
+  "type": "object",
+  "title": "Zero Scan Nudge Log",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "title": "User Email",
+      "format": "email"
+    },
+    "nudge_count": {
+      "type": "number",
+      "title": "Nudges Sent",
+      "default": 0
+    },
+    "last_sent": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Last Sent"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "user_email"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

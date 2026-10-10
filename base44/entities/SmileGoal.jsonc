@@ -1,0 +1,93 @@
+{
+  "name": "SmileGoal",
+  "type": "object",
+  "title": "Smile Goal",
+  "properties": {
+    "event_name": {
+      "type": "string",
+      "title": "Event Name"
+    },
+    "event_type": {
+      "type": "string",
+      "title": "Event Type",
+      "enum": [
+        "wedding",
+        "interview",
+        "date",
+        "photoshoot",
+        "graduation",
+        "reunion",
+        "other"
+      ],
+      "default": "other"
+    },
+    "event_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Event Date"
+    },
+    "target_shade": {
+      "type": "string",
+      "title": "Target Shade"
+    },
+    "completed": {
+      "type": "boolean",
+      "title": "Completed",
+      "default": false
+    }
+  },
+  "required": [
+    "event_name",
+    "event_date"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

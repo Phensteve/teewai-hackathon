@@ -1,0 +1,1139 @@
+/* Recoleta — warm contemporary editorial serif (400/700/900). Replaces the
+   Georgia / Times New Roman system stack with a proper web font so headings
+   render consistently across every device with a premium, Claude-like
+   literary quality. font-display: swap ensures text is visible immediately. */
+@font-face {
+  font-family: 'Recoleta';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://media.base44.com/files/public/builder-assets/wix-fonts/recoleta-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Recoleta';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://media.base44.com/files/public/builder-assets/wix-fonts/recoleta-700-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Recoleta';
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://media.base44.com/files/public/builder-assets/wix-fonts/recoleta-900-normal.woff2') format('woff2');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Motion tokens — one easing curve, three durations.
+       Applied to every transition in the app for consistency. */
+    --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+    --duration-fast: 150ms;
+    --duration-standard: 250ms;
+    --duration-large: 400ms;
+    /* Elevation scale — 3 levels max (cards, floating bars, overlays). */
+    --shadow-1: 0 1px 3px -1px rgba(0,0,0,0.08), 0 1px 2px -1px rgba(0,0,0,0.04);
+    --shadow-2: 0 8px 24px -12px rgba(0,0,0,0.18), 0 2px 6px -2px rgba(0,0,0,0.06);
+    --shadow-3: 0 24px 64px -20px rgba(0,0,0,0.28), 0 8px 20px -8px rgba(0,0,0,0.12);
+    --background: 0 0% 100%;
+    --foreground: 180 20% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 180 20% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 180 20% 8%;
+    --primary: 174 100% 36%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 168 60% 94%;
+    --secondary-foreground: 180 40% 18%;
+    --muted: 168 40% 96%;
+    --muted-foreground: 180 8% 42%;
+    --accent: 168 80% 92%;
+    --accent-foreground: 180 40% 18%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 168 30% 90%;
+    --input: 168 30% 90%;
+    --ring: 174 100% 36%;
+    --chart-1: 174 100% 36%;
+    --chart-2: 190 80% 45%;
+    --chart-3: 160 60% 40%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.75rem;
+    /* Typography — serif headings + system-sans body (research-backed
+       healthcare pairing: serif conveys trust/warmth, sans ensures
+       readability). font-heading = serif for h1-h3; font-body = system
+       sans for all UI/body; font-display = serif for hero moments. */
+    --font-heading: 'Recoleta', Georgia, ui-serif, serif;
+    --font-body: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-display: 'Recoleta', Georgia, ui-serif, serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-serif: 'Recoleta', Georgia, ui-serif, serif;
+    --olo: 174 100% 36%;
+    --olo-deep: 182 85% 16%;
+    --olo-glow: 174 100% 50%;
+    --dentist-route: #00cba9;
+    /* Champagne gold — reserved ONLY for milestones/celebrations (quiet luxury). */
+    --champagne: 40 54% 70%;
+    /* Semantic state colors — replace all hardcoded emerald/amber/red usage
+       so every status indicator draws from the same token set. */
+    --success: 152 62% 38%;
+    --success-foreground: 0 0% 100%;
+    --success-soft: 152 50% 95%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --warning-soft: 38 80% 95%;
+    --danger: 0 72% 52%;
+    --danger-foreground: 0 0% 100%;
+    --danger-soft: 0 70% 95%;
+    /* Habit extrapolation colors — each care action type gets its own color so
+       the user can see how brushing, water, and stain logs each affect their
+       estimated whiteness between scans. */
+    --habit-stain: 38 92% 50%;
+    --habit-brush: 174 100% 36%;
+    --habit-water: 217 91% 60%;
+    --habit-mouthwash: 172 76% 42%;
+  }
+
+  .dark {
+    --background: 182 60% 6%;
+    --foreground: 168 40% 96%;
+    --card: 182 50% 9%;
+    --card-foreground: 168 40% 96%;
+    --popover: 182 50% 9%;
+    --popover-foreground: 168 40% 96%;
+    --primary: 174 100% 42%;
+    --primary-foreground: 182 60% 6%;
+    --secondary: 182 40% 16%;
+    --secondary-foreground: 168 40% 96%;
+    --muted: 182 40% 14%;
+    --muted-foreground: 168 20% 65%;
+    --accent: 174 60% 20%;
+    --accent-foreground: 168 40% 96%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 182 40% 18%;
+    --input: 182 40% 18%;
+    --ring: 174 100% 42%;
+    --dentist-route: #00cba9;
+    --champagne: 42 50% 68%;
+    --success: 152 55% 45%;
+    --success-foreground: 182 60% 6%;
+    --success-soft: 152 30% 14%;
+    --warning: 38 85% 55%;
+    --warning-foreground: 182 60% 6%;
+    --warning-soft: 38 30% 14%;
+    --danger: 0 62% 48%;
+    --danger-foreground: 0 0% 98%;
+    --danger-soft: 0 30% 14%;
+    --habit-stain: 38 85% 55%;
+    --habit-brush: 174 100% 42%;
+    --habit-water: 217 91% 65%;
+    --habit-mouthwash: 172 76% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  /* WCAG 2.2 Focus Appearance — a visible, high-contrast focus ring on
+     every interactive element (links, buttons, inputs, checkboxes, tabs)
+     that appears only for keyboard navigation, never for mouse clicks. */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible,
+  [role="button"]:focus-visible,
+  [role="tab"]:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+  /* WebView polish: no rubber-band bounce / overscroll chaining */
+  html, body {
+    overscroll-behavior: none;
+    overscroll-behavior-y: contain;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  /* Prevent the viewport width from changing when navigating between pages
+     of different heights. Without this, the vertical scrollbar
+     appearing/disappearing resizes every fixed inset-x-0 element (the bottom
+     nav) on each tab click — a visible horizontal shift.
+
+     Two complementary mechanisms:
+     1. overflow-y: scroll — forces the scrollbar to ALWAYS be present, even on
+        short pages. This eliminates the appear/disappear cycle entirely, so the
+        viewport width never changes. This is the most bulletproof fix and
+        cannot be bypassed by the use-scroll-lock hook (which temporarily sets
+        overflow: hidden via inline style for modals, then resets to '' —
+        restoring overflow-y: scroll and the scrollbar).
+     2. scrollbar-gutter: stable — reserves the gutter space as a secondary
+        measure (redundant with overflow-y: scroll, but harmless).
+
+     CRITICAL: overflow-x: hidden must live on <html>, NOT <body>. When body has
+     overflow-x: hidden (and overflow-y defaults to visible), the CSS spec
+     computes overflow-y to auto — making <body> a scroll container. That moves
+     the scrollbar off <html> onto <body>, bypassing both mechanisms. */
+  html {
+    scrollbar-gutter: stable;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  html {
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-tap-highlight-color: transparent;
+  }
+  #root {
+    overscroll-behavior: none;
+    overscroll-behavior-y: contain;
+  }
+  /* Stop the browser's text-selection magnifier/pins on long-press of controls */
+  button, a, select, [role="button"], nav {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+  h1, h2, h3, h4, h5 {
+    @apply font-heading tracking-tight;
+  }
+}
+
+@layer utilities {
+  .text-olo { color: hsl(var(--olo)); }
+  .bg-olo { background-color: hsl(var(--olo)); }
+  .bg-olo-deep { background-color: hsl(var(--olo-deep)); }
+  .text-balance { text-wrap: balance; }
+
+  /* ===== Named Type Scale =====
+     Every text element in the app uses one of these classes. No ad-hoc
+     text sizes or weights elsewhere. Sizes in rem, line-heights tuned
+     for readability (1.4–1.6 for body, tighter for display). */
+  .text-display { font-size: 2.25rem; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; font-family: var(--font-display); }
+  .text-h1 { font-size: 1.875rem; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; font-family: var(--font-heading); }
+  .text-h2 { font-size: 1.5rem; line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; font-family: var(--font-heading); }
+  .text-h3 { font-size: 1.25rem; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; font-family: var(--font-heading); }
+  .text-h4 { font-size: 1.125rem; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; font-family: var(--font-heading); }
+  .text-h5 { font-size: 1rem; line-height: 1.35; font-weight: 600; letter-spacing: -0.01em; font-family: var(--font-heading); }
+  .text-body-lg { font-size: 1.125rem; line-height: 1.6; font-weight: 400; }
+  .text-body { font-size: 1rem; line-height: 1.5; font-weight: 400; }
+  .text-caption { font-size: 0.875rem; line-height: 1.4; font-weight: 400; }
+  .text-label { font-size: 0.75rem; line-height: 1.4; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* ===== Icon Tier System =====
+     Three tiers, codified. Every icon in the app uses exactly one.
+     primary: solid olo container + white icon — primary CTAs only.
+     tool:    tinted olo/10 container + olo icon — tool/feature entries.
+     inline:  bare icon, no container — inline within text or tight rows.
+     Container icons are 20px (w-5 h-5); inline icons are 16px (w-4 h-4). */
+  .icon-primary {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 2.5rem; height: 2.5rem; border-radius: 0.75rem;
+    background-color: hsl(var(--olo)); color: hsl(var(--primary-foreground));
+    flex-shrink: 0;
+  }
+  .icon-primary > svg { width: 1.25rem; height: 1.25rem; }
+  .icon-tool {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 2.5rem; height: 2.5rem; border-radius: 0.75rem;
+    background-color: hsl(var(--olo) / 0.1); color: hsl(var(--olo));
+    flex-shrink: 0;
+  }
+  .icon-tool > svg { width: 1.25rem; height: 1.25rem; }
+  .icon-inline { color: hsl(var(--olo)); }
+  .icon-inline > svg { width: 1rem; height: 1rem; }
+  .icon-muted { color: hsl(var(--muted-foreground)); }
+  .icon-muted > svg { width: 1rem; height: 1rem; }
+
+  /* ===== Semantic state colors ===== */
+  .text-success { color: hsl(var(--success)); }
+  .bg-success { background-color: hsl(var(--success)); }
+  .bg-success-soft { background-color: hsl(var(--success-soft)); }
+  .border-success { border-color: hsl(var(--success) / 0.3); }
+  .text-warning { color: hsl(var(--warning)); }
+  .bg-warning { background-color: hsl(var(--warning)); }
+  .bg-warning-soft { background-color: hsl(var(--warning-soft)); }
+  .border-warning { border-color: hsl(var(--warning) / 0.3); }
+  .text-danger { color: hsl(var(--danger)); }
+  .bg-danger { background-color: hsl(var(--danger)); }
+  .bg-danger-soft { background-color: hsl(var(--danger-soft)); }
+  .border-danger { border-color: hsl(var(--danger) / 0.3); }
+
+  /* Tabular numerals for shade/delta metrics — keeps digits aligned in
+     clinical readouts (VITA codes, scores, countdowns). */
+  .tabular-nums { font-variant-numeric: tabular-nums; }
+  /* Serif display headline for premium clinical-luxury moments. */
+  .font-display-serif { font-family: var(--font-serif); letter-spacing: -0.01em; }
+  .text-champagne { color: hsl(var(--champagne)); }
+  .bg-champagne { background-color: hsl(var(--champagne)); }
+  .border-champagne { border-color: hsl(var(--champagne)); }
+
+  /* Notch / home-indicator safe areas */
+  .safe-area-inset-bottom { padding-bottom: env(safe-area-inset-bottom); }
+  .safe-area-inset-top { padding-top: env(safe-area-inset-top); }
+  /* Offline banner: sits just below the mobile top bar (clear of the APK
+     status / notification bar), and flush to the top on desktop where there
+     is no phone status bar to collide with. */
+  .offline-bar { top: calc(3.5rem + env(safe-area-inset-top)); }
+  @media (min-width: 1024px) {
+    .offline-bar { top: 0; }
+  }
+  .h-safe-bottom { height: env(safe-area-inset-bottom); }
+  /* Mobile content offset: top bar height + status-bar inset */
+  .pt-safe-app { padding-top: calc(5rem + env(safe-area-inset-top)); }
+  @media (min-width: 1024px) {
+    .pt-safe-app { padding-top: 2.5rem;
+  }
+  }
+  /* Chat viewport — fills exactly the available space inside the AppShell
+     (main has pt-safe-app top + pb-24 bottom on mobile, lg:p-10 on desktop)
+     so the input bar is always visible without scrolling. Uses dvh for
+     mobile browser chrome stability. */
+  .chat-fill {
+    height: calc(100dvh - 11rem - env(safe-area-inset-top));
+  }
+  @media (min-width: 1024px) {
+    .chat-fill { height: calc(100dvh - 5rem); }
+  }
+  .user-select-none {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  /* Hide scrollbars while keeping scroll behavior (premium carousels) */
+  .no-scrollbar::-webkit-scrollbar { display: none; height: 0; width: 0; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Compact auth screens for the APK — the WebView viewport is short, so the
+     login / signup content is scaled down to fit on a single screen. */
+  .auth-compact img { width: 2.75rem; height: 2.75rem; margin-bottom: 0.5rem; }
+  .auth-compact h1 { font-size: 1.375rem; line-height: 1.75rem; }
+  .auth-compact p { font-size: 0.8125rem; }
+  .auth-compact .mb-8 { margin-bottom: 1rem; }
+  .auth-compact .mb-6 { margin-bottom: 0.875rem; }
+  .auth-compact .mt-6 { margin-top: 0.875rem; }
+  .auth-compact .p-8 { padding: 1.25rem; }
+  .auth-compact .h-12 { height: 2.75rem; }
+  .auth-compact .space-y-4 > * + * { margin-top: 0.625rem; }
+  .auth-compact .space-y-2 > * + * { margin-top: 0.25rem; }
+
+  .olo-glow {
+    box-shadow: 0 0 60px -10px hsl(var(--olo-glow) / 0.55);
+  }
+  .olo-glow-strong {
+    box-shadow: 0 0 120px -20px hsl(var(--olo-glow) / 0.7), 0 0 40px -10px hsl(var(--olo-glow) / 0.5);
+  }
+  .olo-text-glow {
+    text-shadow: 0 0 30px hsl(var(--olo-glow) / 0.6);
+  }
+
+  /* Professional glassmorphism — applied sparingly to key surfaces only
+     (nav, primary cards, floating bars). Subtle tint + thin light-edge
+     border + soft elevation + a single consistent top light (NN/g, UX Pilot).
+     Solid fallback when backdrop-filter is unsupported. */
+  .glass {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.10) 0%, rgba(174, 240, 255, 0.04) 100%);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 0 rgba(0, 0, 0, 0.08), 0 8px 32px -14px rgba(0, 0, 0, 0.55);
+  }
+  .glass-strong {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(174, 240, 255, 0.06) 100%);
+    backdrop-filter: blur(22px) saturate(165%);
+    -webkit-backdrop-filter: blur(22px) saturate(165%);
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.28), inset 0 -1px 0 0 rgba(0, 0, 0, 0.10), 0 12px 40px -16px rgba(0, 0, 0, 0.6);
+  }
+  .glass-light {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(220, 248, 250, 0.65) 100%);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.9), 0 8px 28px -16px rgba(0, 0, 0, 0.18);
+  }
+  .dark .glass-light {
+    background: linear-gradient(135deg, rgba(10, 22, 22, 0.72) 0%, rgba(8, 30, 32, 0.65) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 8px 32px -16px rgba(0, 0, 0, 0.5);
+  }
+  @supports not ((-webkit-backdrop-filter: blur(2px)) or (backdrop-filter: blur(2px))) {
+    .glass, .glass-strong { background: rgba(10, 22, 22, 0.94); box-shadow: none; }
+    .glass-light { background: rgba(255, 255, 255, 0.96); box-shadow: none; }
+    .dark .glass-light { background: rgba(10, 22, 22, 0.96); }
+  }
+
+  /* Premium frosted edge — a subtle top light-edge + soft elevation. Composes
+     with any frosted or solid surface to add depth without changing its tint,
+     so chrome and cards across the app share one consistent light direction. */
+  .frost-edge {
+    box-shadow: inset 0 1px 0 0 hsl(var(--foreground) / 0.06), 0 8px 24px -18px rgba(0, 0, 0, 0.35);
+  }
+  .font-serif { font-family: var(--font-serif); }
+
+  .paper-texture::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+    z-index: 100;
+  }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(hsl(var(--olo) / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--olo) / 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .radial-olo {
+    background: radial-gradient(circle at 50% 0%, hsl(var(--olo) / 0.25), transparent 60%);
+  }
+
+  /* ShadeEvolutionOverlay — extends the ambient glow upward to cover the
+     main content's top padding (pt-safe-app), eliminating the white bar
+     between the top of the viewport and where the green glow begins. */
+  .shade-overlay-extend {
+    top: calc(-5rem - env(safe-area-inset-top));
+  }
+  @media (min-width: 1024px) {
+    .shade-overlay-extend { top: -2.5rem; }
+  }
+
+  /* Page-wide underwater backdrop — dark olo-deep at the top (the hero
+     region) blending smoothly into the page background lower down, so the
+     transition from the dark hero into the white sections is a continuous
+     gradient instead of a hard seam. svh keeps it aligned with the 100svh
+     hero on mobile; vh is the fallback. */
+  .page-underwater-bg {
+    background: linear-gradient(to bottom,
+      hsl(var(--olo-deep)) 0,
+      hsl(var(--olo-deep)) 100vh,
+      hsl(var(--background)) 115vh);
+    background: linear-gradient(to bottom,
+      hsl(var(--olo-deep)) 0,
+      hsl(var(--olo-deep)) 100svh,
+      hsl(var(--background)) 115svh);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-18px); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-30px) translateX(10px); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
+@keyframes scan-line {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee-scroll 40s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee { animation: none !important; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+.animate-scan-line { animation: scan-line 2.2s ease-in-out infinite; }
+.animate-fade-up { animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* ===== Page transitions (intra-shell) =====
+   Subtle, mechanical entrance slides. Direction is spatial: a page to the
+   right of the one you're leaving enters from the right, one to the left
+   enters from the left, same-level replaces fade in place.
+   CRITICAL: each keyframe ends at `transform: none`. A lingering transform on
+   the wrapper would create a containing block and break `position: fixed`
+   descendants (e.g. the Find a Dentist map + bottom sheet), so the animation
+   settles to no transform at all. Short, stiff, no overshoot — robotic. */
+@keyframes page-enter-right {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes page-enter-left {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes page-enter-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.page-enter-right { animation: page-enter-right 0.2s cubic-bezier(0.4, 0, 0.6, 1) both; }
+.page-enter-left { animation: page-enter-left 0.2s cubic-bezier(0.4, 0, 0.6, 1) both; }
+.page-enter-fade { animation: page-enter-fade 0.2s cubic-bezier(0.4, 0, 0.6, 1) both; }
+/* Native mobile zoom must preserve layout, transforms and containing blocks.
+   Pause ambient motion in place instead of removing animations (which resets
+   their geometry). Keep a zero-radius backdrop filter so fixed descendants
+   retain their containing block, with opaque glass for readable zoomed text. */
+html.zoomed .glass,
+html.zoomed .glass-strong,
+html.zoomed .glass-light,
+html.zoomed [class*="backdrop-blur"] {
+  backdrop-filter: blur(0px) !important;
+  -webkit-backdrop-filter: blur(0px) !important;
+}
+html.zoomed .glass,
+html.zoomed .glass-strong {
+  background: hsl(var(--olo-deep));
+}
+html.zoomed .glass-light {
+  background: hsl(var(--card));
+}
+html.zoomed .animate-float,
+html.zoomed .animate-float-slow,
+html.zoomed .animate-pulse-glow,
+html.zoomed .animate-scan-line,
+html.zoomed .ring-spin,
+html.zoomed .ring-spin-rev,
+html.zoomed .ring-spin-fast,
+html.zoomed .ring-spin-slow,
+html.zoomed .ring-revolve-cw,
+html.zoomed .ring-revolve-ccw,
+html.zoomed .ring-revolve-cw-slow,
+html.zoomed .ring-revolve-ccw-fast,
+html.zoomed .vine,
+html.zoomed .vine-sway-2,
+html.zoomed .leaf-flutter,
+html.zoomed .caustic,
+html.zoomed .water-breathe,
+html.zoomed .water-rise,
+html.zoomed .bubble,
+html.zoomed .blade-sway-a,
+html.zoomed .blade-sway-b,
+html.zoomed .blade-sway-c,
+html.zoomed .seabed-fish,
+html.zoomed .seabed-jelly,
+html.zoomed .seabed-snail,
+html.zoomed .seabed-clam-top,
+html.zoomed .seabed-clam-pearl,
+html.zoomed .seabed-snail-bob,
+html.zoomed .seabed-barnacle,
+html.zoomed .mesh-node,
+html.zoomed .mesh-node-key,
+html.zoomed .mesh-scan-line,
+html.zoomed .vine-flow,
+html.zoomed .animate-marquee,
+html.zoomed .liquid-blob-lead,
+html.zoomed .liquid-blob-trail,
+html.zoomed .scan-cta {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter-right, .page-enter-left, .page-enter-fade { animation: none !important; }
+}
+
+/* Modal entrance: smooth fade + scale, no bounce. */
+@keyframes modal-scale-in {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-modal-scale-in { animation: modal-scale-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .animate-modal-scale-in { animation: none !important; }
+}
+
+/* Hamburger menu — smooth slide-down from the top (not a scale pop). The
+   longer duration + premium easing feels deliberate, not clunky. */
+@keyframes menu-drop-in {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-menu-drop-in { animation: menu-drop-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes backdrop-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-backdrop-fade-in { animation: backdrop-fade-in 0.2s ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .animate-menu-drop-in, .animate-backdrop-fade-in { animation: none !important; }
+}
+
+/* Portal switcher — smooth fade-through-background transition between the
+   patient and dentist portals. 220ms opacity-only, no layout shift. */
+@keyframes portal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.portal-fade-overlay { animation: portal-fade-in 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .portal-fade-overlay { animation: none !important; }
+}
+.animate-gradient { background-size: 200% 200%; animation: gradient-shift 8s ease infinite; }
+
+/* Walking tooth character animations */
+@keyframes walk-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes arm-swing { 0%, 100% { transform: rotate(-15deg); } 50% { transform: rotate(15deg); } }
+@keyframes arm-swing-rev { 0%, 100% { transform: rotate(15deg); } 50% { transform: rotate(-15deg); } }
+@keyframes leg-walk { 0%, 100% { transform: rotate(-20deg); } 50% { transform: rotate(20deg); } }
+@keyframes leg-walk-rev { 0%, 100% { transform: rotate(20deg); } 50% { transform: rotate(-20deg); } }
+.animate-walk-bob { animation: walk-bob 0.5s ease-in-out infinite; }
+.animate-arm-swing { animation: arm-swing 0.5s ease-in-out infinite; }
+.animate-arm-swing-rev { animation: arm-swing-rev 0.5s ease-in-out infinite; }
+.animate-leg-walk { animation: leg-walk 0.5s ease-in-out infinite; }
+.animate-leg-walk-rev { animation: leg-walk-rev 0.5s ease-in-out infinite; }
+
+/* Scroll-triggered entrance — content starts hidden + shifted down, then
+   fades and slides into place when the IntersectionObserver fires .in-view.
+   The Reveal component wraps this; without these rules it was a no-op. */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* Tooth mesh overlay — clean, professional AI analysis animation.
+   Subtle, slow pulses that read as "measurement" not "decoration". */
+@keyframes mesh-node-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.85; }
+}
+@keyframes mesh-node-key-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 0.9; transform: scale(1.08); }
+}
+@keyframes mesh-scan-sweep {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% { top: 100%; opacity: 0; }
+}
+.mesh-node { animation: mesh-node-pulse 3.5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.mesh-node-key { animation: mesh-node-key-pulse 3.5s ease-in-out infinite; }
+.mesh-scan-line { animation: mesh-scan-sweep 5s ease-in-out infinite; }
+
+/* Real tooth-shape mesh: flowing "vine" filaments that travel along the
+   traced tooth boundary + inter-tooth gaps (audit item F). */
+@keyframes vine-flow {
+  0% { stroke-dashoffset: 24; }
+  100% { stroke-dashoffset: 0; }
+}
+.vine-flow { animation: vine-flow 1.8s linear infinite; }
+
+/* Saturn-style rotating halo rings around the scan CTA */
+@keyframes ring-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes ring-spin-rev { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+.ring-spin { animation: ring-spin 26s linear infinite; will-change: transform; }
+.ring-spin-rev { animation: ring-spin-rev 40s linear infinite; will-change: transform; }
+.ring-spin-fast { animation: ring-spin 16s linear infinite; will-change: transform; }
+.ring-spin-slow { animation: ring-spin-rev 55s linear infinite; will-change: transform; }
+
+/* Ezekiel wheels-within-wheels — a ring's tilted plane orbits the center
+   (revolve) on top of its own in-plane spin, so rings tumble in 3D, not
+   just spin. */
+@keyframes ring-revolve-cw { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes ring-revolve-ccw { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+.ring-revolve-cw { animation: ring-revolve-cw 52s linear infinite; will-change: transform; }
+.ring-revolve-ccw { animation: ring-revolve-ccw 64s linear infinite; will-change: transform; }
+.ring-revolve-cw-slow { animation: ring-revolve-cw 84s linear infinite; will-change: transform; }
+.ring-revolve-ccw-fast { animation: ring-revolve-ccw 38s linear infinite; will-change: transform; }
+
+/* Heavenly halo bloom + ring brighten on hover */
+.ring-halo { opacity: 0; transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.scan-ring-group:hover .ring-halo { opacity: 1; transform: scale(1.12); }
+.ring-orbit { transition: border-color 0.5s ease; }
+.scan-ring-group:hover .ring-orbit { border-color: hsl(var(--olo-glow) / 0.55); }
+
+/* Scan CTA — premium glow + satisfying hover bloom */
+.scan-cta {
+  border: 10px solid hsl(var(--olo-glow) / 0.85);
+  background: radial-gradient(circle at 50% 45%, hsl(var(--olo-glow) / 0.12), transparent 70%);
+  box-shadow: 0 0 70px 10px hsl(var(--olo-glow) / 0.45), inset 0 0 50px 0 hsl(var(--olo-glow) / 0.25);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease;
+}
+.scan-cta:hover { transform: scale(1.05); box-shadow: 0 0 120px 24px hsl(var(--olo-glow) / 0.65), inset 0 0 70px 0 hsl(var(--olo-glow) / 0.4); }
+.scan-cta:active { transform: scale(0.98); }
+.scan-cta-text { transition: text-shadow 0.5s ease; }
+.scan-cta:hover .scan-cta-text { text-shadow: 0 0 26px hsl(var(--olo-glow) / 0.95); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-spin, .ring-spin-rev, .ring-spin-fast, .ring-spin-slow,
+  .ring-revolve-cw, .ring-revolve-ccw, .ring-revolve-cw-slow, .ring-revolve-ccw-fast,
+  .animate-float, .animate-float-slow, .animate-pulse-glow { animation: none !important; }
+}
+
+/* Planted seagrass blades — a gentle grounded sway from the base */
+@keyframes blade-sway-a { 0%, 100% { transform: rotate(-2.5deg); } 50% { transform: rotate(3deg); } }
+@keyframes blade-sway-b { 0%, 100% { transform: rotate(3deg); } 50% { transform: rotate(-2.8deg); } }
+@keyframes blade-sway-c { 0%, 100% { transform: rotate(-1.8deg) translateX(-1px); } 50% { transform: rotate(2.2deg) translateX(1px); } }
+.blade-sway-a { animation: blade-sway-a 9s ease-in-out infinite; will-change: transform; }
+.blade-sway-b { animation: blade-sway-b 12s ease-in-out infinite; will-change: transform; }
+.blade-sway-c { animation: blade-sway-c 10s ease-in-out infinite; will-change: transform; }
+
+/* Seabed creatures */
+@keyframes seabed-fish-swim {
+  0% { transform: translateX(-15vw) translateY(0); }
+  20% { transform: translateX(20vw) translateY(-7px); }
+  40% { transform: translateX(45vw) translateY(5px); }
+  60% { transform: translateX(68vw) translateY(-6px); }
+  80% { transform: translateX(92vw) translateY(4px); }
+  100% { transform: translateX(118vw) translateY(0); }
+}
+/* Crab — walks right, pauses, turns around, walks left, pauses. Back-and-
+   forth with stops and direction reversals (not a continuous loop like fish). */
+@keyframes seabed-crab-walk {
+  0% { transform: translateX(-12vw) scaleX(1); }
+  40% { transform: translateX(45vw) scaleX(1); }
+  45% { transform: translateX(45vw) scaleX(1); }
+  48% { transform: translateX(45vw) scaleX(-1); }
+  88% { transform: translateX(-12vw) scaleX(-1); }
+  93% { transform: translateX(-12vw) scaleX(-1); }
+  96% { transform: translateX(-12vw) scaleX(1); }
+  100% { transform: translateX(-12vw) scaleX(1); }
+}
+/* Worm — crawls right with a mid-journey pause, turns, crawls back. Shorter
+   range and different timing than the crab so they never move in lockstep. */
+@keyframes seabed-worm-crawl {
+  0% { transform: translateX(-8vw) scaleX(1); }
+  25% { transform: translateX(18vw) scaleX(1); }
+  30% { transform: translateX(18vw) scaleX(1); }
+  33% { transform: translateX(18vw) scaleX(-1); }
+  55% { transform: translateX(50vw) scaleX(-1); }
+  60% { transform: translateX(50vw) scaleX(-1); }
+  63% { transform: translateX(50vw) scaleX(1); }
+  85% { transform: translateX(5vw) scaleX(1); }
+  90% { transform: translateX(5vw) scaleX(1); }
+  93% { transform: translateX(5vw) scaleX(-1); }
+  100% { transform: translateX(-8vw) scaleX(-1); }
+}
+@keyframes seabed-clam-peep {
+  0%, 100% { transform: rotate(0deg); }
+  42% { transform: rotate(-24deg); }
+  58% { transform: rotate(-24deg); }
+}
+@keyframes seabed-clam-pearl {
+  0%, 35% { opacity: 0; transform: translateY(3px) scale(0.5); }
+  48%, 52% { opacity: 1; transform: translateY(-2px) scale(1); }
+  65%, 100% { opacity: 0; transform: translateY(3px) scale(0.5); }
+}
+/* Snail — the slowest creature. Short range, long pauses, turns around
+   halfway and meanders back. Each creature has its own speed + pause pattern. */
+@keyframes seabed-snail-crawl {
+  0% { transform: translateX(-8vw) scaleX(1); }
+  35% { transform: translateX(15vw) scaleX(1); }
+  42% { transform: translateX(15vw) scaleX(1); }
+  45% { transform: translateX(15vw) scaleX(-1); }
+  80% { transform: translateX(-8vw) scaleX(-1); }
+  87% { transform: translateX(-8vw) scaleX(-1); }
+  90% { transform: translateX(-8vw) scaleX(1); }
+  100% { transform: translateX(-8vw) scaleX(1); }
+}
+@keyframes seabed-snail-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+@keyframes seabed-barnacle-pulse {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.1); }
+}
+/* A jellyfish drifting through the mid-water */
+@keyframes seabed-jelly-drift {
+  0% { transform: translateX(-14vw) translateY(0); }
+  35% { transform: translateX(30vw) translateY(-14px); }
+  70% { transform: translateX(72vw) translateY(8px); }
+  100% { transform: translateX(115vw) translateY(-6px); }
+}
+.seabed-jelly { animation: seabed-jelly-drift 52s linear infinite; will-change: transform; }
+
+.seabed-fish { animation: seabed-fish-swim 26s linear infinite; will-change: transform; }
+.seabed-clam-top { animation: seabed-clam-peep 6s ease-in-out infinite; }
+.seabed-clam-pearl { animation: seabed-clam-pearl 6s ease-in-out infinite; }
+.seabed-snail { animation: seabed-snail-crawl 80s linear infinite; will-change: transform; }
+.seabed-snail-bob { animation: seabed-snail-bob 3s ease-in-out infinite; }
+.seabed-barnacle { animation: seabed-barnacle-pulse 5s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .blade-sway-a, .blade-sway-b, .blade-sway-c { animation: none !important; }
+  .seabed-fish, .seabed-snail { animation: none !important; }
+  .seabed-clam-top, .seabed-clam-pearl, .seabed-snail-bob, .seabed-barnacle { animation: none !important; }
+}
+
+/* Living underwater background — swaying vine tendrils, drifting caustics,
+   a breathing water-surface glow, and faint rising light that reads as water
+   being poured in. GPU-friendly (transform/opacity only), very low opacity,
+   and paused for prefers-reduced-motion. */
+@keyframes vine-sway {
+  0%, 100% { transform: rotate(-4.5deg); }
+  50% { transform: rotate(4.5deg); }
+}
+@keyframes vine-sway-alt {
+  0%, 100% { transform: rotate(3.5deg) translateX(-2px); }
+  50% { transform: rotate(-4.5deg) translateX(2px); }
+}
+@keyframes caustic-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.55; }
+  50% { transform: translate(40px, -28px) scale(1.15); opacity: 0.85; }
+}
+@keyframes water-breathe {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+@keyframes water-rise {
+  0% { transform: translateY(20px); opacity: 0; }
+  20% { opacity: 0.6; }
+  80% { opacity: 0.6; }
+  100% { transform: translateY(-140px); opacity: 0; }
+}
+.vine { transform-box: fill-box; transform-origin: 50% 100%; will-change: transform; }
+.vine-a { animation: vine-sway 12s ease-in-out infinite; }
+.vine-b { animation: vine-sway-alt 15s ease-in-out infinite; }
+.vine-c { animation: vine-sway 10s ease-in-out infinite; }
+.caustic { animation: caustic-drift 20s ease-in-out infinite; will-change: transform, opacity; }
+.water-breathe { animation: water-breathe 9s ease-in-out infinite; will-change: opacity; }
+.water-rise { animation: water-rise 16s ease-in-out infinite; will-change: transform, opacity; }
+
+@keyframes bubble-rise {
+  0% { transform: translateY(0) scale(0.7); opacity: 0; }
+  15% { opacity: 0.5; }
+  85% { opacity: 0.35; }
+  100% { transform: translateY(-680px) scale(1); opacity: 0; }
+}
+.bubble { animation: bubble-rise 18s ease-in-out infinite; will-change: transform, opacity; }
+.vine-top { transform-origin: 50% 0; }
+
+/* Secondary layered sway + leaf flutter — layered on top of the base vine
+   sway so each tendril moves organically (two different periods never repeat
+   in lockstep) and every leaf gently flutters on its own, making the vines
+   feel truly alive like kelp in a current. */
+@keyframes vine-sway-2 {
+  0%, 100% { transform: rotate(-2.6deg) translateX(-1.5px); }
+  50% { transform: rotate(3.2deg) translateX(2px); }
+}
+.vine-sway-2 { animation: vine-sway-2 9s ease-in-out infinite; will-change: transform; }
+@keyframes leaf-flutter {
+  0%, 100% { transform: rotate(-4deg) scale(0.97); }
+  50% { transform: rotate(5deg) scale(1.04); }
+}
+.leaf-flutter { transform-box: fill-box; transform-origin: 50% 100%; animation: leaf-flutter 5s ease-in-out infinite; will-change: transform; }
+
+/* Premium edge-fade mask for scroll-snap carousels — softens the cut-off at
+   the left/right edges so cards fade in/out instead of clipping hard. */
+.carousel-fade {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+
+/* Pause all ambient animations when a LivingBackground layer is scrolled
+   out of view (IntersectionObserver toggles .lb-paused) — only the in-view
+   layers animate, keeping the page smooth. */
+.lb-paused .vine, .lb-paused .vine-sway-2, .lb-paused .leaf-flutter, .lb-paused .caustic, .lb-paused .water-breathe, .lb-paused .water-rise, .lb-paused .bubble, .lb-paused .blade-sway-a, .lb-paused .blade-sway-b, .lb-paused .blade-sway-c, .lb-paused .seabed-fish, .lb-paused .seabed-clam-top, .lb-paused .seabed-clam-pearl, .lb-paused .seabed-snail, .lb-paused .seabed-snail-bob, .lb-paused .seabed-barnacle { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vine, .vine-sway-2, .leaf-flutter, .caustic, .water-breathe, .water-rise, .bubble { animation: none !important; }
+}
+
+/* Liquid pointer layer — a warped caustic bloom trailing the cursor plus a
+   click ripple. Screen blending keeps it additive light, never a dark smudge. */
+.liquid-blob-lead {
+  background: radial-gradient(circle at 50% 50%, hsl(var(--olo-glow) / 0.55) 0%, hsl(var(--olo) / 0.28) 45%, transparent 72%);
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+.liquid-blob-trail {
+  background: radial-gradient(circle at 50% 50%, hsl(var(--olo) / 0.26) 0%, hsl(190 90% 55% / 0.15) 50%, transparent 74%);
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+@keyframes liquid-ripple {
+  0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0.55; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+.liquid-ripple {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  margin: 0;
+  border-radius: 9999px;
+  border: 1.5px solid hsl(var(--olo-glow) / 0.5);
+  box-shadow: 0 0 40px hsl(var(--olo-glow) / 0.25), inset 0 0 40px hsl(var(--olo-glow) / 0.15);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: liquid-ripple 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid-ripple { display: none; }
+}
+
+/* ===== APK Onboarding art — living illustrations =====
+   Continuous micro-animations that make each slide feel alive. All use
+   transform/opacity only (GPU-friendly). Paused by default, running only
+   when the parent SVG has .onboard-active (the visible slide). Respects
+   prefers-reduced-motion. */
+@keyframes onboard-beam-sweep {
+  0%, 100% { transform: translateY(-28px); opacity: 0.3; }
+  50% { transform: translateY(28px); opacity: 0.9; }
+}
+@keyframes onboard-node-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.35); }
+}
+@keyframes onboard-arc-breathe {
+  0%, 100% { stroke-dashoffset: 176; }
+  50% { stroke-dashoffset: 260; }
+}
+@keyframes onboard-bar-breathe {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.82); }
+}
+@keyframes onboard-arrow-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+@keyframes onboard-dot-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.18); }
+}
+@keyframes onboard-float-a {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+@keyframes onboard-float-b {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(3px, -5px); }
+  66% { transform: translate(-3px, 4px); }
+}
+@keyframes onboard-float-c {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(3deg); }
+}
+@keyframes onboard-heart-beat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.18); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.12); }
+  56% { transform: scale(1); }
+}
+@keyframes onboard-line-shimmer {
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 0.5; }
+}
+@keyframes onboard-glow-breathe {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.35; }
+}
+.onboard-art .onboard-anim { animation-play-state: paused; }
+.onboard-art.onboard-active .onboard-anim { animation-play-state: running; }
+.onboard-beam { animation: onboard-beam-sweep 4s ease-in-out infinite; }
+.onboard-node { animation: onboard-node-pulse 2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.onboard-arc { animation: onboard-arc-breathe 4s ease-in-out infinite; }
+.onboard-bar { animation: onboard-bar-breathe 3s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom; }
+.onboard-arrow { animation: onboard-arrow-bounce 2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.onboard-dot { animation: onboard-dot-pulse 2.5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.onboard-float-a { animation: onboard-float-a 4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.onboard-float-b { animation: onboard-float-b 5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.onboard-float-c { animation: onboard-float-c 6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.onboard-heart { animation: onboard-heart-beat 1.5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.onboard-line { animation: onboard-line-shimmer 3s ease-in-out infinite; }
+.onboard-glow { animation: onboard-glow-breathe 5s ease-in-out infinite; }
+
+/* Enhanced living animations — particles, pulse rings, orbiting dots, sparkles */
+@keyframes onboard-particle-rise {
+  0% { transform: translateY(20px); opacity: 0; }
+  15% { opacity: 0.7; }
+  85% { opacity: 0.3; }
+  100% { transform: translateY(-55px); opacity: 0; }
+}
+@keyframes onboard-pulse-ring {
+  0% { transform: scale(0.3); opacity: 0.8; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+@keyframes onboard-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes onboard-arc-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes onboard-sparkle {
+  0%, 100% { opacity: 0; transform: scale(0.4); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+.onboard-particle { animation: onboard-particle-rise 4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.onboard-pulse-ring { animation: onboard-pulse-ring 2.5s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+.onboard-orbit { animation: onboard-orbit 18s linear infinite; transform-origin: 150px 155px; }
+.onboard-arc-orbit { animation: onboard-arc-orbit 8s linear infinite; transform-origin: 150px 150px; }
+.onboard-sparkle { animation: onboard-sparkle 2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .onboard-beam, .onboard-node, .onboard-arc, .onboard-bar, .onboard-arrow,
+  .onboard-dot, .onboard-float-a, .onboard-float-b, .onboard-float-c,
+  .onboard-heart, .onboard-line, .onboard-glow,
+  .onboard-particle, .onboard-pulse-ring, .onboard-orbit,
+  .onboard-arc-orbit, .onboard-sparkle { animation: none !important; }
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: hsl(var(--olo) / 0.3); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--olo) / 0.5); }
+
+/* ===== Dentist map pins — Flighty-style dot + label chip =====
+   teewai dentists: solid olo dot. Nearby clinics: outlined dot. Selecting
+   scales the dot up and floats a label chip (clinic name + distance) above. */
+.dp-wrap { background: transparent !important; border: none !important; }
+.dp-dot {
+  width: 100%; height: 100%; border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease;
+  cursor: pointer;
+}
+.dp-teewai { background: hsl(var(--olo)); border: 2px solid #fff; }
+.dp-nearby { background: #fff; border: 2px solid hsl(var(--olo)); }
+@media (prefers-reduced-motion: reduce) {
+  .dp-dot { transition: none; }
+}
+
+/* Road and fallback routes share one brand token, in both themes. */
+@keyframes dentist-route-flow { to { stroke-dashoffset: -42; } }
+.dentist-route-line {
+  stroke: var(--dentist-route);
+  stroke-dasharray: 9 12;
+  animation: dentist-route-flow 2s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dentist-route-line { animation: none; stroke-dasharray: none; }
+}
+
+/* Ask Teewai thinking indicator — three dots pulsing in sequence + a rotating
+   word with a soft fade. Calm, minimal, Claude-like. */
+@keyframes thinking-dot {
+  0%, 60%, 100% { opacity: 0.25; transform: scale(0.8); }
+  30% { opacity: 1; transform: scale(1); }
+}
+.thinking-dot { animation: thinking-dot 1.2s ease-in-out infinite; }
+
+@keyframes thinking-word {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.thinking-word { animation: thinking-word 0.4s ease both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .thinking-dot { animation: none; opacity: 0.6; }
+  .thinking-word { animation: none; }
+}
+
+/* Auth celebration particle burst — teal dots radiating outward from center.
+   Uses CSS custom properties --tx/--ty for the end position (set inline per
+   particle). 600ms outward with a gentle fade. Reduced-motion: hidden (the
+   AuthCelebration component doesn't render them at all). */
+@keyframes auth-celebration-burst {
+  0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  15% { opacity: 0.9; transform: translate(calc(var(--tx) * 0.2), calc(var(--ty) * 0.2)) scale(1); }
+  100% { transform: translate(var(--tx), var(--ty)) scale(0.3); opacity: 0; }
+}
+.auth-celebration-particle {
+  animation: auth-celebration-burst 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .auth-celebration-particle { animation: none !important; opacity: 0; }
+}
+
+/* Auth step transition — subtle slide/fade between form steps (~220ms). */
+@keyframes auth-step-enter {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes auth-step-exit {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(-12px); }
+}
+.auth-step-enter { animation: auth-step-enter 220ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.auth-step-exit { animation: auth-step-exit 180ms cubic-bezier(0.4, 0, 1, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .auth-step-enter, .auth-step-exit { animation: none !important; }
+}
+
+/* Brief discoverability — subtle glow on the hamburger button and a soft dot
+   on the sidebar entry when unopened briefs exist. Low intensity, slow pulse,
+   no bounce. Reduced motion: static glow only. */
+@keyframes brief-glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(var(--olo-glow) / 0); }
+  50% { box-shadow: 0 0 10px 3px hsl(var(--olo-glow) / 0.18); }
+}
+.brief-glow-ring { animation: brief-glow-pulse 2.5s ease-in-out infinite; }
+.brief-glow-dot { animation: brief-glow-pulse 2.5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .brief-glow-ring { animation: none; box-shadow: 0 0 8px 2px hsl(var(--olo-glow) / 0.15); }
+  .brief-glow-dot { animation: none; box-shadow: 0 0 6px 2px hsl(var(--olo-glow) / 0.2); }
+}
+
+/* Sleek thin scrollbar for the desktop sidebar nav — always visible so the
+   scrollable area is obvious, brightens on hover. 4px wide, rounded, olo-tinted. */
+.sidebar-scroll { scrollbar-width: thin; scrollbar-color: hsl(var(--olo) / 0.35) transparent; }
+.sidebar-scroll::-webkit-scrollbar { width: 4px; }
+.sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
+.sidebar-scroll::-webkit-scrollbar-thumb { background: hsl(var(--olo) / 0.35); border-radius: 9999px; }
+.sidebar-scroll:hover::-webkit-scrollbar-thumb { background: hsl(var(--olo) / 0.55); }
+.sidebar-scroll::-webkit-scrollbar-thumb:hover { background: hsl(var(--olo) / 0.7); }
+
+/* Sticky table headers for admin tables — sticks below the sticky admin
+   navbar. The --admin-nav-h variable is set on the admin content wrapper.
+   overflow-y-clip on the table wrapper prevents overflow-x-auto from
+   creating a vertical scroll container (which would trap the sticky thead
+   inside the wrapper instead of sticking to the viewport). */
+.admin-sticky-thead {
+  position: sticky;
+  top: var(--admin-nav-h, 0px);
+  z-index: 10;
+}
+
+/* Trend graph — staggered draw animation. Grid/area fade in, the line draws
+   via stroke-dashoffset, points pop with a stagger. Reduced-motion: instant. */
+@keyframes trend-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes trend-point-pop { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+.trend-grid { animation: trend-fade-in 0.4s ease both; }
+.trend-area { animation: trend-fade-in 0.5s ease both; }
+.trend-point { opacity: 0; animation: trend-point-pop 0.3s cubic-bezier(0.16,1,0.3,1) both; transform-box: fill-box; transform-origin: center; }
+@media (prefers-reduced-motion: reduce) {
+  .trend-grid, .trend-area, .trend-point { animation: none; opacity: 1; }
+}

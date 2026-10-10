@@ -1,0 +1,68 @@
+{
+  "name": "GuestIp",
+  "type": "object",
+  "title": "Guest IP Log",
+  "properties": {
+    "ip_address": {
+      "type": "string",
+      "title": "IP Address"
+    },
+    "last_seen": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Last seen"
+    },
+    "post_count": {
+      "type": "number",
+      "title": "Post count",
+      "default": 0
+    },
+    "last_message": {
+      "type": "string",
+      "title": "Last message snippet"
+    },
+    "banned": {
+      "type": "boolean",
+      "title": "Banned",
+      "default": false
+    },
+    "banned_by": {
+      "type": "string",
+      "title": "Banned by"
+    },
+    "banned_reason": {
+      "type": "string",
+      "title": "Ban reason"
+    },
+    "banned_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Banned date"
+    }
+  },
+  "required": [
+    "ip_address"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

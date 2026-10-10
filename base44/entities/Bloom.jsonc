@@ -1,0 +1,162 @@
+{
+  "name": "Bloom",
+  "type": "object",
+  "title": "Enamel Bloom",
+  "description": "A time-limited remineralization 'bloom' opened by each scan (the Zeigarnik open loop). Ripens over a few hours, stays harvestable through a ripeness window, then fades with a small recoverable shade dip if not harvested. A streak shield can extend a fading bloom. Client-driven lifecycle; status transitions are computed from ripe_at/fade_deadline vs. now and persisted on harvest/fade/shield.",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "title": "User ID",
+      "description": "The Base44 user the bloom belongs to. Used for RLS scoping."
+    },
+    "source_scan_id": {
+      "type": "string",
+      "title": "Source Scan ID",
+      "description": "The scan that planted this bloom."
+    },
+    "planted_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Planted Date",
+      "description": "When the bloom was planted (scan completion time)."
+    },
+    "ripe_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Ripe At",
+      "description": "When the bloom becomes harvestable. Extended by a shield."
+    },
+    "fade_deadline": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Fade Deadline",
+      "description": "When the bloom fades if not harvested. 2.5x the ripen duration (FarmVille ratio). Extended by a shield."
+    },
+    "ripen_duration_min": {
+      "type": "number",
+      "title": "Ripen Duration (minutes)",
+      "default": 240,
+      "description": "Minutes from planting to ripeness."
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "ripening",
+        "ripe",
+        "harvested",
+        "faded",
+        "shielded"
+      ],
+      "default": "ripening",
+      "description": "ripening = before ripe_at; ripe = harvestable window; harvested = care action locked in the bonus; faded = window closed without harvest; shielded = a streak shield extended the deadlines (re-ripens)."
+    },
+    "harvested_action": {
+      "type": "string",
+      "title": "Harvest Action",
+      "description": "Which care action harvested the bloom (brush / water / stain_log)."
+    },
+    "harvested_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Harvested Date"
+    },
+    "fade_applied": {
+      "type": "boolean",
+      "title": "Fade Applied",
+      "default": false,
+      "description": "True once the small recoverable shade dip has been surfaced for this faded bloom."
+    },
+    "fade_dip": {
+      "type": "number",
+      "title": "Fade Dip",
+      "description": "The small recoverable shade dip (points) applied when this bloom fades. Fully reversed by the next scan.",
+      "default": 3
+    },
+    "shield_used": {
+      "type": "boolean",
+      "title": "Shield Used",
+      "default": false,
+      "description": "True if a streak shield was consumed to extend this bloom's deadlines."
+    },
+    "shielded_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Shielded Date"
+    },
+    "cleared": {
+      "type": "boolean",
+      "title": "Cleared",
+      "default": false,
+      "description": "True once a newer scan has superseded this bloom (the fade dip is restored). Set when a new bloom is planted."
+    }
+  },
+  "required": [
+    "source_scan_id",
+    "planted_date",
+    "ripe_at",
+    "fade_deadline"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "name": "CookieConsent",
+  "type": "object",
+  "title": "Cookie Consent Record",
+  "description": "Append-only audit trail of a logged-in user's cookie/storage consent choices. A new record is created on first consent and on every later change via Cookie settings. Guests never get a database record; their choice is stored in localStorage only.",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "title": "User ID",
+      "description": "The user who made this consent choice."
+    },
+    "choice": {
+      "type": "string",
+      "title": "Consent Choice",
+      "enum": [
+        "accept_all",
+        "reject_non_essential"
+      ],
+      "description": "accept_all = user accepted non-essential storage/tracking. reject_non_essential = user rejected non-essential storage/tracking."
+    },
+    "policy_version": {
+      "type": "string",
+      "title": "Policy Version",
+      "description": "The version of the consent policy the user agreed to. When this changes, everyone is re-prompted."
+    },
+    "consent_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Consent Date"
+    },
+    "source": {
+      "type": "string",
+      "title": "Source",
+      "enum": [
+        "banner",
+        "settings"
+      ],
+      "description": "Where the choice was made: the consent banner on first visit, or the Cookie settings link in the footer."
+    }
+  },
+  "required": [
+    "user_id",
+    "choice",
+    "policy_version",
+    "source"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

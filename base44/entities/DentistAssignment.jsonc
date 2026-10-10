@@ -1,0 +1,150 @@
+{
+  "name": "DentistAssignment",
+  "type": "object",
+  "title": "Dentist Assignment",
+  "properties": {
+    "patient_id": {
+      "type": "string",
+      "title": "Patient User ID"
+    },
+    "patient_email": {
+      "type": "string",
+      "title": "Patient Email",
+      "format": "email"
+    },
+    "patient_name": {
+      "type": "string",
+      "title": "Patient Display Name"
+    },
+    "dentist_id": {
+      "type": "string",
+      "title": "Dentist Profile ID"
+    },
+    "dentist_user_id": {
+      "type": "string",
+      "title": "Dentist User ID",
+      "description": "The dentist's User entity ID, used for RLS and to link Scan records via scan.dentist_id."
+    },
+    "dentist_name": {
+      "type": "string",
+      "title": "Dentist Display Name"
+    },
+    "assignment_type": {
+      "type": "string",
+      "title": "Assignment Type",
+      "enum": [
+        "primary",
+        "secondary"
+      ],
+      "default": "secondary"
+    },
+    "proposed_role": {
+      "type": "string",
+      "title": "Proposed Role",
+      "description": "The role the dentist suggested when initiating the assignment. The patient's final choice (assignment_type) is what governs access.",
+      "enum": [
+        "primary",
+        "secondary"
+      ]
+    },
+    "initiated_by": {
+      "type": "string",
+      "title": "Initiated By",
+      "description": "Who started the assignment: patient (direct assign) or dentist (pending request requiring patient approval).",
+      "enum": [
+        "patient",
+        "dentist"
+      ],
+      "default": "patient"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "pending",
+        "active",
+        "revoked"
+      ],
+      "default": "pending"
+    },
+    "can_see_photos": {
+      "type": "boolean",
+      "title": "Can See Photos",
+      "description": "When true (primary dentist only), the patient has granted photo access. Defaults to false. The patient must explicitly toggle it on.",
+      "default": false
+    },
+    "consent_given": {
+      "type": "boolean",
+      "title": "Consent Given",
+      "description": "True only after the patient explicitly consents to the assignment. No pre-consented defaults.",
+      "default": false
+    },
+    "consent_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Consent Date"
+    }
+  },
+  "required": [
+    "patient_id",
+    "dentist_id",
+    "dentist_user_id",
+    "assignment_type"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.dentist_user_id": "{{user.id}}"
+        },
+        {
+          "data.patient_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

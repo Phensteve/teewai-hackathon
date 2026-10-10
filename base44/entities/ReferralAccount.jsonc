@@ -1,0 +1,110 @@
+{
+  "name": "ReferralAccount",
+  "type": "object",
+  "title": "Referral Account",
+  "description": "A user's referral account \u2014 unique code, naira balance, and eligibility. Balance accumulates from referral rewards (\u20a650 per successful referral). Withdrawal threshold: \u20a62,000.",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "title": "User ID"
+    },
+    "referral_code": {
+      "type": "string",
+      "title": "Referral Code"
+    },
+    "balance_naira": {
+      "type": "number",
+      "title": "Balance (\u20a6)",
+      "default": 0
+    },
+    "total_earned": {
+      "type": "number",
+      "title": "Total Earned (\u20a6)",
+      "default": 0
+    },
+    "total_withdrawn": {
+      "type": "number",
+      "title": "Total Withdrawn (\u20a6)",
+      "default": 0
+    },
+    "successful_referrals": {
+      "type": "number",
+      "title": "Successful Referrals",
+      "default": 0
+    },
+    "pending_referrals": {
+      "type": "number",
+      "title": "Pending Referrals",
+      "default": 0
+    },
+    "code_active": {
+      "type": "boolean",
+      "title": "Code Active",
+      "default": false
+    },
+    "last_billing_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Last Billing Date"
+    },
+    "next_billing_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Next Billing Date"
+    },
+    "plan_type": {
+      "type": "string",
+      "title": "Plan Type"
+    }
+  },
+  "required": [
+    "user_id",
+    "referral_code"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "name": "DiscussionMessage",
+  "type": "object",
+  "title": "Discussion Message",
+  "properties": {
+    "room_id": {
+      "type": "string",
+      "title": "Room ID"
+    },
+    "content": {
+      "type": "string",
+      "title": "Content",
+      "maxLength": 2000
+    },
+    "author_name": {
+      "type": "string",
+      "title": "Author Display Name"
+    },
+    "author_display_name": {
+      "type": "string",
+      "title": "Author Display Name (resolved)",
+      "description": "The name to display: real name for admins who opt in, otherwise display name. Null for guests."
+    },
+    "author_username": {
+      "type": "string",
+      "title": "Author Username",
+      "description": "The @username of the author. Null for guests."
+    },
+    "is_guest": {
+      "type": "boolean",
+      "title": "Guest Post",
+      "default": false
+    },
+    "is_admin": {
+      "type": "boolean",
+      "title": "From teewai official",
+      "description": "True when the author is a flagged teewai official (is_official). Independent of the Base44 admin role.",
+      "default": false
+    },
+    "is_verified": {
+      "type": "boolean",
+      "title": "Author Verified",
+      "default": false
+    },
+    "is_from_verified_medical": {
+      "type": "boolean",
+      "title": "From verified medical professional",
+      "description": "True when the author held a teewai-verified medical credential at post time. Verified clinicians may give medical advice; their posts are not auto-flagged.",
+      "default": false
+    },
+    "medical_profession": {
+      "type": "string",
+      "title": "Author medical profession",
+      "description": "Captured at post time for verified medical authors (e.g. dentist, orthodontist)."
+    },
+    "is_medical_advice": {
+      "type": "boolean",
+      "title": "Medical advice detected",
+      "description": "True when the message matched the medical-advice detector. Verified clinicians are exempt from flagging but this flag is still set for transparency.",
+      "default": false
+    },
+    "edited": {
+      "type": "boolean",
+      "title": "Edited",
+      "description": "True when the author edited the message after posting.",
+      "default": false
+    },
+    "edited_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Edited date"
+    },
+    "flag_status": {
+      "type": "string",
+      "title": "Moderation flag status",
+      "enum": [
+        "none",
+        "flagged",
+        "disputed",
+        "resolved_kept",
+        "resolved_removed"
+      ],
+      "default": "none"
+    },
+    "flag_reason": {
+      "type": "string",
+      "title": "Flag reason",
+      "description": "Why the message was auto-flagged (matched phrase / category)."
+    },
+    "dispute_text": {
+      "type": "string",
+      "title": "Dispute text",
+      "description": "The author's explanation when disputing a flag.",
+      "maxLength": 1000
+    },
+    "dispute_status": {
+      "type": "string",
+      "title": "Dispute status",
+      "enum": [
+        "none",
+        "pending",
+        "upheld",
+        "dismissed"
+      ],
+      "default": "none"
+    },
+    "reviewed_by": {
+      "type": "string",
+      "title": "Reviewed by (admin)"
+    }
+  },
+  "required": [
+    "room_id",
+    "content"
+  ],
+  "rls": {
+    "read": null,
+    "create": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

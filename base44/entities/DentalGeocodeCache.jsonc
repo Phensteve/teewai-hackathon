@@ -1,0 +1,49 @@
+{
+  "name": "DentalGeocodeCache",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string"
+    },
+    "query": {
+      "type": "string"
+    },
+    "position": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "maxItems": 2
+    },
+    "checked_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "key",
+    "query"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

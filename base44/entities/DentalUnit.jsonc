@@ -1,0 +1,102 @@
+{
+  "name": "DentalUnit",
+  "type": "object",
+  "title": "Dental Unit",
+  "description": "Pre-ingested, classified dental care location served by the grid-cell index. Built in the background from OpenStreetMap health facilities (including generic clinics and hospitals that offer dental care).",
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "title": "Source ID"
+    },
+    "cell": {
+      "type": "string",
+      "title": "Grid Cell",
+      "description": "Grid cell key (0.05 degree cells) used for instant lookup."
+    },
+    "clinic_name": {
+      "type": "string",
+      "title": "Clinic Name"
+    },
+    "full_name": {
+      "type": "string",
+      "title": "Dentist Name"
+    },
+    "address": {
+      "type": "string",
+      "title": "Address"
+    },
+    "city": {
+      "type": "string",
+      "title": "City"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone"
+    },
+    "website": {
+      "type": "string",
+      "title": "Website"
+    },
+    "latitude": {
+      "type": "number",
+      "title": "Latitude"
+    },
+    "longitude": {
+      "type": "number",
+      "title": "Longitude"
+    },
+    "facility_type": {
+      "type": "string",
+      "title": "Facility Type"
+    },
+    "dental_tier": {
+      "type": "number",
+      "title": "Dental Tier",
+      "description": "1 = explicitly dental, 2 = validated by website, 3 = inferred from description/semantic check."
+    },
+    "dental_confidence": {
+      "type": "number",
+      "title": "Dental Confidence (0-1)"
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Dental Signals"
+    },
+    "refreshed_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Refreshed At"
+    }
+  },
+  "required": [
+    "source_id",
+    "cell",
+    "latitude",
+    "longitude"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

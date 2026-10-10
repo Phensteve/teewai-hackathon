@@ -1,0 +1,289 @@
+{
+  "name": "DentalRoutine",
+  "type": "object",
+  "title": "Dental Routine",
+  "description": "A user's personalized, modifiable daily dental care routine. Generated from scan data (stains, gum health, plaque, enamel) and food logs. Includes locked 'anti-recommendation' steps that should not be changed because of a detected condition, and auto-modifies when new scan results or food logs indicate a change is needed. One active routine per user; superseded routines are archived.",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "title": "User ID"
+    },
+    "version": {
+      "type": "number",
+      "title": "Version",
+      "default": 1,
+      "description": "Increments each time the routine is regenerated."
+    },
+    "active": {
+      "type": "boolean",
+      "title": "Active",
+      "default": true,
+      "description": "Only one routine is active per user. Older versions are archived (active=false)."
+    },
+    "generated_from_scan_id": {
+      "type": "string",
+      "title": "Generated From Scan ID",
+      "description": "The scan that was used to generate (or last regenerate) this routine."
+    },
+    "generated_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Generated Date"
+    },
+    "title": {
+      "type": "string",
+      "title": "Routine Title",
+      "description": "A short, encouraging title for the routine (e.g. 'Coffee-stain defense routine')."
+    },
+    "summary": {
+      "type": "string",
+      "title": "Summary",
+      "description": "A one-paragraph plain-language explanation of why this routine was built this way, referencing the scan findings."
+    },
+    "morning_steps": {
+      "type": "array",
+      "title": "Morning Steps",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Step ID"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "icon": {
+            "type": "string",
+            "title": "Icon key",
+            "description": "A lucide icon name key (brush, floss, rinse, water, timer, shield)."
+          },
+          "locked": {
+            "type": "boolean",
+            "title": "Locked",
+            "default": false
+          },
+          "lock_reason": {
+            "type": "string",
+            "title": "Lock Reason",
+            "description": "When locked, the anti-recommendation reason: why this step should not be changed or skipped."
+          }
+        },
+        "required": [
+          "id",
+          "label"
+        ]
+      }
+    },
+    "evening_steps": {
+      "type": "array",
+      "title": "Evening Steps",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Step ID"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "icon": {
+            "type": "string",
+            "title": "Icon key"
+          },
+          "locked": {
+            "type": "boolean",
+            "title": "Locked",
+            "default": false
+          },
+          "lock_reason": {
+            "type": "string",
+            "title": "Lock Reason"
+          }
+        },
+        "required": [
+          "id",
+          "label"
+        ]
+      }
+    },
+    "dietary_guidance": {
+      "type": "array",
+      "title": "Dietary Guidance",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Guidance ID"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "severity": {
+            "type": "string",
+            "title": "Severity",
+            "enum": [
+              "info",
+              "warning",
+              "danger"
+            ],
+            "default": "info"
+          },
+          "locked": {
+            "type": "boolean",
+            "title": "Locked",
+            "default": false
+          },
+          "lock_reason": {
+            "type": "string",
+            "title": "Lock Reason"
+          }
+        },
+        "required": [
+          "id",
+          "label"
+        ]
+      }
+    },
+    "stain_mitigation": {
+      "type": "array",
+      "title": "Stain Mitigation",
+      "description": "Targeted actions to counter the specific stains detected in the scan.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Mitigation ID"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "stain_type": {
+            "type": "string",
+            "title": "Stain Type",
+            "description": "The stain this mitigates (coffee, tea, tobacco, etc.)."
+          }
+        },
+        "required": [
+          "id",
+          "label"
+        ]
+      }
+    },
+    "auto_modifications": {
+      "type": "array",
+      "title": "Auto Modifications Log",
+      "description": "A log of automatic modifications applied to this routine since it was generated, so the user can see what changed and why.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date"
+          },
+          "trigger": {
+            "type": "string",
+            "title": "Trigger",
+            "enum": [
+              "scan",
+              "food_log"
+            ],
+            "description": "What triggered the modification."
+          },
+          "change": {
+            "type": "string",
+            "title": "Change",
+            "description": "Plain-language description of what was added/modified."
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "user_id",
+    "title",
+    "morning_steps",
+    "evening_steps"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

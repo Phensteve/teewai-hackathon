@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /scan
+Disallow: /braces-check
+Disallow: /my-scans
+Disallow: /results/
+Disallow: /subscription
+Disallow: /family
+Disallow: /home-whitening
+Disallow: /stain-tracker
+Disallow: /timeline
+Disallow: /time-machine
+Disallow: /find-dentist
+Disallow: /leaderboard
+Disallow: /profile
+Disallow: /checkout
+Disallow: /thank-you
+Disallow: /write
+Disallow: /apply
+Disallow: /onboarding
+Disallow: /complete-profile
+
+Sitemap: https://teewai.app/sitemap.xml

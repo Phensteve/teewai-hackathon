@@ -1,0 +1,55 @@
+{
+  "name": "IpRegistration",
+  "type": "object",
+  "title": "IP Registration",
+  "properties": {
+    "ip_address": {
+      "type": "string",
+      "title": "IP Address"
+    },
+    "user_email": {
+      "type": "string",
+      "title": "User Email",
+      "format": "email"
+    },
+    "user_id": {
+      "type": "string",
+      "title": "User ID"
+    },
+    "username": {
+      "type": "string",
+      "title": "Username"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "ip_address",
+    "user_email"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

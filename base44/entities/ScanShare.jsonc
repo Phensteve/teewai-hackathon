@@ -1,0 +1,187 @@
+{
+  "name": "ScanShare",
+  "type": "object",
+  "title": "Scan Share",
+  "properties": {
+    "scan_id": {
+      "type": "string",
+      "title": "Scan ID"
+    },
+    "patient_id": {
+      "type": "string",
+      "title": "Patient User ID"
+    },
+    "patient_email": {
+      "type": "string",
+      "title": "Patient Email",
+      "format": "email"
+    },
+    "patient_name": {
+      "type": "string",
+      "title": "Patient Display Name"
+    },
+    "dentist_id": {
+      "type": "string",
+      "title": "Dentist Profile ID"
+    },
+    "dentist_user_id": {
+      "type": "string",
+      "title": "Dentist User ID",
+      "description": "The dentist's User entity ID, used for RLS."
+    },
+    "dentist_name": {
+      "type": "string",
+      "title": "Dentist Display Name"
+    },
+    "share_type": {
+      "type": "string",
+      "title": "Share Type",
+      "enum": [
+        "report_only",
+        "report_and_photos"
+      ],
+      "default": "report_only"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "active",
+        "revoked"
+      ],
+      "default": "active"
+    },
+    "shared_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Shared Date"
+    },
+    "scan_snapshot": {
+      "type": "object",
+      "title": "Scan Report Snapshot",
+      "description": "Point-in-time copy of the scan report data (scores, shade, recommendations, AI feedback, etc.) so secondary dentists can read the report without needing RLS access to the Scan entity. Cleared on revocation.",
+      "properties": {
+        "score": {
+          "type": "number"
+        },
+        "shade": {
+          "type": "string"
+        },
+        "shade_code": {
+          "type": "string"
+        },
+        "brightness": {
+          "type": "number"
+        },
+        "stains_detected": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stain_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "smile_zone_score": {
+          "type": "number"
+        },
+        "smile_zone_shade": {
+          "type": "string"
+        },
+        "whitening_potential_score": {
+          "type": "number"
+        },
+        "whitening_potential_shade": {
+          "type": "string"
+        },
+        "dental_health_score": {
+          "type": "number"
+        },
+        "gum_health": {
+          "type": "string"
+        },
+        "plaque_level": {
+          "type": "string"
+        },
+        "recommendations": {
+          "type": "array"
+        },
+        "ai_feedback": {
+          "type": "string"
+        },
+        "image_url": {
+          "type": "string"
+        },
+        "scan_type": {
+          "type": "string"
+        },
+        "scan_date": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "scan_id",
+    "patient_id",
+    "dentist_id",
+    "dentist_user_id",
+    "share_type"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.dentist_user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

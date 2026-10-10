@@ -1,0 +1,154 @@
+{
+  "name": "UserProgress",
+  "type": "object",
+  "title": "User Progress",
+  "properties": {
+    "mmr": {
+      "type": "number",
+      "title": "Smile MMR",
+      "default": 0
+    },
+    "peak_mmr": {
+      "type": "number",
+      "title": "Peak MMR",
+      "default": 0
+    },
+    "peak_rank": {
+      "type": "string",
+      "title": "Peak Rank"
+    },
+    "season": {
+      "type": "number",
+      "title": "Current Season",
+      "default": 1
+    },
+    "season_xp": {
+      "type": "number",
+      "title": "Season XP",
+      "default": 0
+    },
+    "total_xp": {
+      "type": "number",
+      "title": "Total XP",
+      "default": 0
+    },
+    "discovery_xp": {
+      "type": "number",
+      "title": "Discovery XP",
+      "description": "XP earned specifically from exploration discoveries (food finds, first stain logs, bloom harvests) \u2014 separate from scan XP so the Collection page can show exploration contribution.",
+      "default": 0
+    },
+    "streak_shields": {
+      "type": "number",
+      "title": "Streak Shields",
+      "default": 1
+    },
+    "rewards_earned": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Rewards Earned"
+    },
+    "milestones_earned": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Milestones Earned"
+    },
+    "charms_collected": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Lucky Charms Collected",
+      "description": "Charm IDs the user has collected from scan reward drops, Beginner's Luck, and discovery surfaces (food finds, stain logs, bloom harvests)."
+    },
+    "traits_collected": {
+      "type": "array",
+      "title": "Smile Traits Collected",
+      "description": "Durable collection of discovered Smile Traits. Each entry records the trait id, the first time it was found, and how many times it has recurred.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Trait ID"
+          },
+          "first_found_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "First Found Date"
+          },
+          "count": {
+            "type": "number",
+            "title": "Times Found",
+            "default": 1
+          }
+        }
+      }
+    },
+    "last_scan_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Last Scan Date"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "maxLength": 1000
+    }
+  },
+  "required": [],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

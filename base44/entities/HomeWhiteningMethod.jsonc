@@ -1,0 +1,120 @@
+{
+  "name": "HomeWhiteningMethod",
+  "type": "object",
+  "title": "Home Whitening Method",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Method Name"
+    },
+    "category": {
+      "type": "string",
+      "title": "Category",
+      "enum": [
+        "bleaching",
+        "abrasive",
+        "enzymatic",
+        "maintenance",
+        "natural"
+      ],
+      "default": "bleaching"
+    },
+    "active_ingredient": {
+      "type": "string",
+      "title": "Active Ingredient"
+    },
+    "short_description": {
+      "type": "string",
+      "title": "Short Description"
+    },
+    "how_to_use": {
+      "type": "string",
+      "title": "How to Use"
+    },
+    "frequency": {
+      "type": "string",
+      "title": "Recommended Frequency"
+    },
+    "expected_results": {
+      "type": "string",
+      "title": "Expected Results"
+    },
+    "time_to_results": {
+      "type": "string",
+      "title": "Time to Visible Results"
+    },
+    "safety_notes": {
+      "type": "string",
+      "title": "Safety Notes"
+    },
+    "evidence_sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Independent Evidence Sources"
+    },
+    "effectiveness_score": {
+      "type": "number",
+      "title": "Effectiveness Score (0-100)"
+    },
+    "safety_score": {
+      "type": "number",
+      "title": "Safety Score (0-100)"
+    },
+    "cost_tier": {
+      "type": "string",
+      "title": "Cost Tier",
+      "enum": [
+        "budget",
+        "mid",
+        "premium"
+      ],
+      "default": "mid"
+    },
+    "suitable_for": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Suitable For (stain types)"
+    },
+    "icon": {
+      "type": "string",
+      "title": "Icon name (lucide-react)"
+    },
+    "sort_order": {
+      "type": "number",
+      "title": "Display Order",
+      "default": 0
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "short_description"
+  ],
+  "rls": {
+    "read": null,
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

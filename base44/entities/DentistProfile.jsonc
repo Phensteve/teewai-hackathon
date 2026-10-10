@@ -1,0 +1,161 @@
+{
+  "name": "DentistProfile",
+  "type": "object",
+  "title": "Dentist Profile",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "title": "User ID"
+    },
+    "full_name": {
+      "type": "string",
+      "title": "Dentist Full Name"
+    },
+    "practice_name": {
+      "type": "string",
+      "title": "Practice Name"
+    },
+    "clinic_name": {
+      "type": "string",
+      "title": "Clinic Name"
+    },
+    "specialization": {
+      "type": "string",
+      "title": "Specialization"
+    },
+    "license_number": {
+      "type": "string",
+      "title": "License Number"
+    },
+    "contact_email": {
+      "type": "string",
+      "format": "email",
+      "title": "Contact Email"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone"
+    },
+    "bio": {
+      "type": "string",
+      "title": "Bio"
+    },
+    "address": {
+      "type": "string",
+      "title": "Clinic Address"
+    },
+    "city": {
+      "type": "string",
+      "title": "City"
+    },
+    "latitude": {
+      "type": "number",
+      "title": "Latitude"
+    },
+    "longitude": {
+      "type": "number",
+      "title": "Longitude"
+    },
+    "location_status": {
+      "type": "string",
+      "enum": [
+        "located",
+        "no_location"
+      ],
+      "title": "Location Status"
+    },
+    "geocoded_address": {
+      "type": "string",
+      "title": "Address used for saved location"
+    },
+    "geocoded_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Location checked at"
+    },
+    "profile_picture": {
+      "type": "string",
+      "format": "uri",
+      "title": "Profile Picture URL"
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false,
+      "title": "Verified",
+      "description": "Admin-verified dentist credential."
+    },
+    "accepting_patients": {
+      "type": "boolean",
+      "default": true,
+      "title": "Accepting New Patients"
+    },
+    "booking_enabled": {
+      "type": "boolean",
+      "default": true,
+      "title": "Online Booking Enabled"
+    },
+    "rating": {
+      "type": "number",
+      "default": 0,
+      "title": "Rating",
+      "description": "Average patient rating, 0 to 5."
+    },
+    "subscription_active": {
+      "type": "boolean",
+      "default": false,
+      "title": "Teewai Partner",
+      "description": "True when the dentist has an active teewai subscription."
+    }
+  },
+  "required": [
+    "full_name"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": null,
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

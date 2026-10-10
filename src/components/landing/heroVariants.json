@@ -1,0 +1,27 @@
+{
+  "active": "scanInvite",
+  "countdown": {
+    "deadline": "2026-10-16T23:59:59Z",
+    "headline": "First 1,000 smiles get free scans",
+    "subtext": "Join teewai early — the first thousand members lock in complimentary scans for life.",
+    "cta": "Claim my free scan",
+    "ctaLink": "/free-scan"
+  },
+  "variants": {
+    "classic": {
+      "label": "Classic (original)",
+      "component": "HeroClassic",
+      "description": "Two-column hero: transformation headline, dual CTAs, feature pills, and the live AI score preview card."
+    },
+    "scanInvite": {
+      "label": "Interactive scan invite",
+      "component": "HeroScanInvite",
+      "description": "Centered glowing scan ring as the CTA, with orbiting result chips and social proof below."
+    },
+    "proofBar": {
+      "label": "Numbers-first authority",
+      "component": "HeroProofBar",
+      "description": "Two-column hero with a full-width proof stat bar anchored at the bottom edge."
+    }
+  }
+}

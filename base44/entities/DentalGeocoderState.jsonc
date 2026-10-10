@@ -1,0 +1,42 @@
+{
+  "name": "DentalGeocoderState",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "next_allowed_at": {
+      "type": "number",
+      "default": 0
+    },
+    "endpoint": {
+      "type": "string",
+      "default": "https://nominatim.openstreetmap.org/search"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

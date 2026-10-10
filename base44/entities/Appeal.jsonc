@@ -1,0 +1,90 @@
+{
+  "name": "Appeal",
+  "type": "object",
+  "title": "Appeal",
+  "properties": {
+    "ip_address": {
+      "type": "string",
+      "title": "IP Address",
+      "description": "The IP the appeal concerns. Populated server-side from the trusted request IP (not client-side). May be empty until the backend logging function is available."
+    },
+    "block_type": {
+      "type": "string",
+      "title": "Block Type",
+      "enum": [
+        "guest_post",
+        "signup",
+        "account",
+        "ip_ban"
+      ]
+    },
+    "reason_shown": {
+      "type": "string",
+      "title": "Reason Shown",
+      "description": "The reason message that was displayed to the user when they were blocked/banned."
+    },
+    "user_message": {
+      "type": "string",
+      "title": "User Message",
+      "description": "The user's explanation of why they believe the block/ban is a mistake.",
+      "maxLength": 2000
+    },
+    "contact_email": {
+      "type": "string",
+      "title": "Contact Email",
+      "format": "email"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "open",
+        "under_review",
+        "upheld",
+        "lifted"
+      ],
+      "default": "open"
+    },
+    "submitted_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Submitted Date"
+    },
+    "resolved_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Resolved Date"
+    },
+    "reviewer": {
+      "type": "string",
+      "title": "Reviewer"
+    },
+    "resolution_notes": {
+      "type": "string",
+      "title": "Resolution Notes",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "block_type",
+    "user_message"
+  ],
+  "rls": {
+    "create": null,
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

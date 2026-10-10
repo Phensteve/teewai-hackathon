@@ -1,0 +1,149 @@
+{
+  "name": "ReferralWithdrawal",
+  "type": "object",
+  "title": "Referral Withdrawal",
+  "description": "A withdrawal request from a user's referral balance. Airtime disbursals are processed instantly via Peyflex. Bank transfers via Flutterwave (future).",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "title": "User ID"
+    },
+    "amount": {
+      "type": "number",
+      "title": "Amount (\u20a6)"
+    },
+    "withdrawal_type": {
+      "type": "string",
+      "title": "Withdrawal Type",
+      "enum": [
+        "bank",
+        "airtime"
+      ],
+      "default": "bank"
+    },
+    "bank_name": {
+      "type": "string",
+      "title": "Bank Name"
+    },
+    "account_number": {
+      "type": "string",
+      "title": "Account Number"
+    },
+    "account_name": {
+      "type": "string",
+      "title": "Account Name"
+    },
+    "phone_number": {
+      "type": "string",
+      "title": "Phone Number (for airtime)"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "pending",
+        "batched",
+        "processing",
+        "completed",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "batch_id": {
+      "type": "string",
+      "title": "Batch ID"
+    },
+    "batch_time": {
+      "type": "string",
+      "title": "Batch Time",
+      "enum": [
+        "06:00",
+        "12:00",
+        "18:00"
+      ]
+    },
+    "batch_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Batch Date"
+    },
+    "requested_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Requested Date"
+    },
+    "processed_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Processed Date"
+    },
+    "provider_reference": {
+      "type": "string",
+      "title": "Provider Reference",
+      "description": "The transaction reference returned by the disbursement provider (Peyflex for airtime, Flutterwave for bank)."
+    },
+    "provider_status": {
+      "type": "string",
+      "title": "Provider Status",
+      "description": "The raw status string returned by the provider (e.g. SUCCESS, FAILED)."
+    },
+    "provider_network": {
+      "type": "string",
+      "title": "Provider Network",
+      "description": "The network detected/used for airtime topup (mtn, airtel, glo, 9mobile)."
+    },
+    "idempotency_key": {
+      "type": "string",
+      "title": "Idempotency Key"
+    },
+    "failure_reason": {
+      "type": "string",
+      "title": "Failure Reason"
+    }
+  },
+  "required": [
+    "user_id",
+    "amount",
+    "withdrawal_type",
+    "status"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

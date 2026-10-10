@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Content-Security-Policy — defense-in-depth (Mitnick rule: reduce the
+         blast radius of a successful XSS). Forces https everywhere, blocks
+         plugin objects, <base> hijack, cross-origin form posts, and non-https
+         script/style/connect loads — the channels a script-injection XSS would
+         use to exfiltrate the admin token from localStorage. script-src stays
+         permissive (https:) so the platform's runtime script injection can't
+         be accidentally blocked (a white screen is worse than a soft CSP);
+         connect-src is tight to the only legitimate API origins so a fetch/XHR
+         to an attacker domain is refused. frame-ancestors needs an HTTP header
+         (not supported in <meta>) — set server-side once backend access returns. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' data:; img-src 'self' data: blob: https:; connect-src 'self' https://*.base44.app https://api.paystack.co https://*.paystack.com https://accounts.google.com https://*.googleapis.com https://nominatim.openstreetmap.org https://maps.mail.ru https://overpass.private.coffee https://overpass-api.de https://overpass.kumi.systems; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'self' https://*.paystack.co https://*.paystack.com https://accounts.google.com; upgrade-insecure-requests;" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>teewai — Dental Analysis &amp; Whitening Tracker</title>
+    <meta name="application-name" content="teewai">
+    <meta name="description" content="teewai scores your smile's whiteness and health from a single photo. Get an instant VITA shade match, detect stains, plaque and enamel issues, track your whitening progress over time, and follow a personalized plan backed by research that improves with every scan. Snap your meals to track the chromogens, tannins and acids in your diet, all from your phone.">
+    <meta name="keywords" content="teeth whitening, dental analysis, AI dental scan, smile score, VITA shade, teeth color, whitening tracker, dental health app, plaque detection, stain detection, food stain tracker, diet stain, chromogens, tannin, teeth stain diet, meal scan, teewai">
+    <meta name="author" content="teewai">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="referrer" content="origin-when-cross-origin">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <meta name="rating" content="general">
+    <meta name="distribution" content="global">
+    <meta property="og:title" content="teewai — Dental Analysis &amp; Whitening Tracker">
+    <meta property="og:description" content="Score your smile's whiteness and health from a single photo. Get an instant VITA shade match, detect stains and plaque, and follow a personalized whitening plan that improves with every scan.">
+    <meta property="og:url" content="https://teewai.app/">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="teewai">
+    <meta property="og:image" content="https://teewai.app/og-image.svg">
+    <meta property="og:image:alt" content="teewai — AI dental analysis and whitening tracker app">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@teewai">
+    <meta name="twitter:creator" content="@teewai">
+    <meta name="twitter:title" content="teewai — Dental Analysis &amp; Whitening Tracker">
+    <meta name="twitter:description" content="Score your smile's whiteness and health from a single photo. Get a VITA shade match, detect stains, and follow a personalized whitening plan.">
+    <meta name="twitter:image" content="https://teewai.app/og-image.svg">
+    <meta name="twitter:image:alt" content="teewai — AI dental analysis and whitening tracker app">
+    <meta name="theme-color" content="#00d9c0">
+    <meta name="apple-mobile-web-app-title" content="teewai">
+    <link rel="canonical" href="https://teewai.app/" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "teewai",
+      "url": "https://teewai.app",
+      "logo": "https://teewai.app/favicon.svg",
+      "description": "teewai scores your smile's whiteness and health from a single photo, matches it to a VITA shade, detects stains and plaque, and builds a personalized whitening plan."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "teewai",
+      "url": "https://teewai.app",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "iOS, Android, Web",
+      "logo": "https://teewai.app/favicon.svg",
+      "description": "teewai scores your smile's whiteness and health from a single photo, matches it to a VITA shade, detects stains and plaque, and builds a personalized whitening plan that improves with every scan.",
+      "featureList": [
+        "AI whiteness scoring from a single photo",
+        "VITA Classical shade matching",
+        "Stain, plaque and enamel detection",
+        "Food & stain tracking from meal photos",
+        "5-angle full-mouth scan for a complete picture",
+        "Personalized whitening plan backed by research",
+        "Whitening progress tracking over time",
+        "Family plan with per-member scan tracking"
+      ],
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "HealthTopic",
+       "name": "Teeth Whitening and Dental Health Tracking",
+       "url": "https://teewai.app",
+       "description": "Dental analysis that scores teeth whiteness and health from a photo, matches to the VITA Classical shade guide, and builds a personalized whitening plan.",
+       "about": ["Teeth whitening", "Dental health", "VITA shade matching", "Plaque detection", "Enamel condition", "Dietary stain tracking"],
+       "audience": { "@type": "Patient", "healthCondition": "Dental health and teeth discoloration" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+       "@context": "https://schema.org",
+       "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "How does teewai analyze my teeth?", "acceptedAnswer": { "@type": "Answer", "text": "Snap a photo of your smile and teewai's AI extracts whiteness, shade, stain and dental-health signals. A deterministic engine then maps them to a VITA Classical shade and a 0-100 whiteness and dental health score." } },
+        { "@type": "Question", "name": "Is teewai a medical device?", "acceptedAnswer": { "@type": "Answer", "text": "No. teewai is a wellness companion. We strongly advise visiting your dentist for professional care." } },
+        { "@type": "Question", "name": "Does teewai work for families?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Family plans include up to 5 members with 15 scans each per month, tracked individually in a shared family dashboard." } },
+        { "@type": "Question", "name": "Does teewai use my photos to train AI?", "acceptedAnswer": { "@type": "Answer", "text": "No. teewai never uses your photos to train AI models and never sells your data." } },
+        { "@type": "Question", "name": "What is the difference between a quick scan and a full scan?", "acceptedAnswer": { "@type": "Answer", "text": "A quick scan uses one photo for a fast whiteness and dental health score. A full scan captures five angles (front, upper, lower, left and right) for a complete picture of your whole mouth, and costs 3 scan credits." } },
+        { "@type": "Question", "name": "How accurate is the VITA shade match?", "acceptedAnswer": { "@type": "Answer", "text": "teewai compares your teeth to the VITA Classical A1-D4 shade guide, the same standard dentists use. For the most precise color calibration, include a VITA shade tab or a plain white index card in the frame as a reference." } },
+        { "@type": "Question", "name": "Does teewai detect plaque, calculus and enamel wear?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. teewai screens for stains, plaque, calculus, enamel erosion and early caries using validated indices like the Silness and Loe Plaque Index, BEWE erosion score and ICDAS caries grading, all from a single photo. Your dentist confirms these with a clinical exam." } },
+        { "@type": "Question", "name": "Can teewai track how my diet stains my teeth?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Snap a photo of your meal and teewai identifies each item, then scores the chromogens, tannins and acids that cause extrinsic staining. Every scan rolls into a daily stain load so you can see exactly which foods and drinks are dimming your smile and get mitigation tips." } }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <script>
+      // Apply saved text zoom before first paint to avoid a flash.
+      // Scales the root font-size; Tailwind's rem-based utilities scale the
+      // entire UI proportionally (text, spacing, icons) — like browser zoom.
+      (function () {
+        try {
+          var z = parseInt(localStorage.getItem('teewai_text_zoom'), 10);
+          if ([25, 75, 100, 125, 150].indexOf(z) !== -1) {
+            document.documentElement.style.fontSize = (16 * z) / 100 + 'px';
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <script>
+      // Register the offline app-shell service worker as early as possible —
+      // before the JS bundle downloads — so it installs and activates on the
+      // very first visit. Once active, it intercepts navigation on the next
+      // offline launch and serves the cached shell, preventing the native
+      // WebView's "no connection" error page. APK / native only.
+      (function () {
+        if (!('serviceWorker' in navigator)) return;
+        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
+        try {
+          var ua = navigator.userAgent || '';
+          var isAndroidWV = /Android/i.test(ua) && /;\s*wv\)/i.test(ua);
+          var params = new URLSearchParams(window.location.search);
+          var hasParam = params.get('platform') === 'apk' || params.get('apk') === '1';
+          if (isAndroidWV || hasParam) {
+            try { localStorage.setItem('teewai_native_app', '1'); } catch (e) {}
+            navigator.serviceWorker.register('/sw.js').catch(function () {});
+          } else {
+            // Web context: clear any stale native-app flag and unregister the
+            // offline SW so the cached shell doesn't interfere with the live
+            // web app at the same origin. A previously-registered SW stays
+            // active for the current page load even after unregister(), so we
+            // also wipe its caches and force a single reload to drop control —
+            // otherwise stale Vite chunks get served (React/ReactDOM mismatch
+            // → "Cannot read properties of null (reading 'useState')").
+            try { localStorage.removeItem('teewai_native_app'); } catch (e) {}
+            navigator.serviceWorker.getRegistration('/').then(function (reg) {
+              if (reg) {
+                reg.unregister().then(function () {
+                  if (window.caches && caches.keys) {
+                    caches.keys().then(function (keys) {
+                      keys.forEach(function (k) { caches.delete(k); });
+                    });
+                  }
+                  if (!sessionStorage.getItem('teewai_sw_purged')) {
+                    sessionStorage.setItem('teewai_sw_purged', '1');
+                    window.location.reload();
+                  }
+                });
+              }
+            }).catch(function () {});
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <div id="root">
+      <!-- Hidden static description for crawlers; replaced when the app loads -->
+      <div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;padding:0;margin:-1px;">
+        <h1>teewai — Dental Analysis &amp; Whitening Tracker</h1>
+        <p>teewai scores your smile's whiteness and health from a single photo. Snap a photo and teewai's AI extracts whiteness, shade, stain and dental health signals; a deterministic engine then maps them to a VITA Classical shade, a 0-100 whiteness score, and a dental health score. You get an instant shade match, stain and plaque detection, a personalized whitening plan backed by research, and a progress tracker that shows your improvement over time. Snap your meals and teewai identifies the chromogens, tannins and acids in your diet, rolling each into a daily stain load that shows exactly what's dimming your smile. Family plans include 5 members with 15 scans each per month, tracked individually. We use your Google account only to sign you in securely and create your profile. We never sell your data or use your photos to train AI models. <a href="/privacy">Privacy Policy</a>.</p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

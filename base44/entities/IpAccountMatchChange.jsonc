@@ -1,0 +1,82 @@
+{
+  "name": "IpAccountMatchChange",
+  "type": "object",
+  "title": "IP Account Match Change",
+  "description": "Audit log for device/IP association resets. A user can reset their device association once every 45 days per IP address. Each reset is logged here for security review.",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "title": "User ID"
+    },
+    "user_email": {
+      "type": "string",
+      "title": "User Email",
+      "format": "email"
+    },
+    "ip_address": {
+      "type": "string",
+      "title": "IP Address"
+    },
+    "old_device_hash": {
+      "type": "string",
+      "title": "Old Device Hash"
+    },
+    "new_device_hash": {
+      "type": "string",
+      "title": "New Device Hash"
+    },
+    "change_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Change Date"
+    },
+    "next_allowed_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Next Allowed Change Date"
+    }
+  },
+  "required": [
+    "user_id",
+    "change_date"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

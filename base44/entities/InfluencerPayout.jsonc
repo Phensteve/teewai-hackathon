@@ -1,0 +1,63 @@
+{
+  "name": "InfluencerPayout",
+  "type": "object",
+  "properties": {
+    "campaign_id": {
+      "type": "string"
+    },
+    "influencer_name": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "settled"
+      ],
+      "default": "pending"
+    },
+    "settled_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "settled_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "campaign_id",
+    "influencer_name",
+    "status"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

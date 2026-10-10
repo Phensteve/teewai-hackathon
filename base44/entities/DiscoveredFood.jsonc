@@ -1,0 +1,101 @@
+{
+  "name": "DiscoveredFood",
+  "type": "object",
+  "title": "Discovered Food",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Food Name"
+    },
+    "name_key": {
+      "type": "string",
+      "title": "Normalized Name Key",
+      "description": "Lowercase, punctuation-stripped name used for lookups so future scans match this entry."
+    },
+    "category": {
+      "type": "string",
+      "title": "Category",
+      "enum": [
+        "coffee",
+        "tea",
+        "wine",
+        "soda",
+        "juice",
+        "food",
+        "fruit",
+        "sauce",
+        "habit",
+        "protective"
+      ],
+      "default": "food"
+    },
+    "stain_level": {
+      "type": "number",
+      "title": "Stain Level (0-100)",
+      "default": 0
+    },
+    "chromogenic": {
+      "type": "number",
+      "title": "Chromogenic (0-100)",
+      "default": 0
+    },
+    "acidity": {
+      "type": "number",
+      "title": "Acidity (0-100)",
+      "default": 0
+    },
+    "tannin": {
+      "type": "number",
+      "title": "Tannin (0-100)",
+      "default": 0
+    },
+    "calories": {
+      "type": "number",
+      "title": "Calories",
+      "default": 0
+    },
+    "mitigation": {
+      "type": "string",
+      "title": "Mitigation Tip"
+    },
+    "source": {
+      "type": "string",
+      "title": "Source",
+      "default": "ai_discovered"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "name",
+    "name_key"
+  ],
+  "rls": {
+    "read": null,
+    "create": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

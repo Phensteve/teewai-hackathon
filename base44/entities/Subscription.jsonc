@@ -1,0 +1,192 @@
+{
+  "name": "Subscription",
+  "type": "object",
+  "title": "Subscription",
+  "properties": {
+    "plan": {
+      "type": "string",
+      "title": "Plan",
+      "enum": [
+        "free",
+        "pack_2",
+        "pack_15",
+        "pack_30",
+        "family_15",
+        "custom",
+        "pro",
+        "pro_yearly",
+        "family_pro",
+        "family_extra_member"
+      ],
+      "default": "free"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "active",
+        "canceled",
+        "trialing"
+      ],
+      "default": "active"
+    },
+    "started_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Started Date"
+    },
+    "renewal_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Renewal Date"
+    },
+    "scans_used": {
+      "type": "number",
+      "title": "Scans Used",
+      "default": 0
+    },
+    "scans_limit": {
+      "type": "number",
+      "title": "Scans Limit",
+      "default": 2
+    },
+    "pack_scans_total": {
+      "type": "number",
+      "title": "Pack Scans Total",
+      "description": "For family plan owners: leftover pack/free scans captured at the moment of family purchase, consumed BEFORE the family 15. Pack scans never expire.",
+      "default": 0
+    },
+    "pack_scans_remaining": {
+      "type": "number",
+      "title": "Pack Scans Remaining",
+      "default": 0
+    },
+    "members": {
+      "type": "array",
+      "title": "Family Members",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Member Name"
+          },
+          "email": {
+            "type": "string",
+            "title": "Member Email"
+          },
+          "link": {
+            "type": "string",
+            "title": "Link (email, username, or display name)"
+          },
+          "role": {
+            "type": "string",
+            "title": "Family Role",
+            "enum": [
+              "mother",
+              "father",
+              "son",
+              "daughter",
+              "brother",
+              "sister",
+              "nephew",
+              "niece",
+              "cousin",
+              "grandfather",
+              "grandmother",
+              "uncle",
+              "aunt",
+              "guardian",
+              "other"
+            ],
+            "default": "other"
+          },
+          "scans_used": {
+            "type": "number",
+            "title": "Scans Used",
+            "default": 0
+          },
+          "scans_limit": {
+            "type": "number",
+            "title": "Scans Limit",
+            "default": 15
+          }
+        }
+      }
+    },
+    "purchases": {
+      "type": "array",
+      "title": "Purchase History",
+      "items": {
+        "type": "object",
+        "properties": {
+          "plan": {
+            "type": "string",
+            "title": "Plan"
+          },
+          "scans_added": {
+            "type": "number",
+            "title": "Scans Added"
+          },
+          "amount_usd": {
+            "type": "number",
+            "title": "Amount (USD)"
+          },
+          "reference": {
+            "type": "string",
+            "title": "Payment Reference"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date"
+          }
+        }
+      }
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "plan"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

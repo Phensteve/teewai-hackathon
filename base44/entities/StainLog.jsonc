@@ -1,0 +1,122 @@
+{
+  "name": "StainLog",
+  "type": "object",
+  "title": "Stain Log Entry",
+  "properties": {
+    "item_name": {
+      "type": "string",
+      "title": "Item Name"
+    },
+    "category": {
+      "type": "string",
+      "title": "Category"
+    },
+    "stain_level": {
+      "type": "number",
+      "title": "Stain Level (0-100)",
+      "default": 0
+    },
+    "chromogenic": {
+      "type": "number",
+      "title": "Chromogenic (0-100)",
+      "description": "Pigment / chromogen load measured for this item \u2014 the coloured molecules that bind to enamel.",
+      "default": 0
+    },
+    "tannin": {
+      "type": "number",
+      "title": "Tannin (0-100)",
+      "description": "Tannin / polyphenol load \u2014 the plant compounds that fix pigments onto the enamel surface.",
+      "default": 0
+    },
+    "acidity": {
+      "type": "number",
+      "title": "Acidity (0-100)",
+      "description": "Acid load \u2014 erodes and roughens enamel so stains cling more easily.",
+      "default": 0
+    },
+    "calories": {
+      "type": "number",
+      "title": "Calories",
+      "default": 0
+    },
+    "log_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Log Date"
+    },
+    "source": {
+      "type": "string",
+      "title": "Source",
+      "enum": [
+        "catalog",
+        "ai_scan",
+        "custom"
+      ],
+      "default": "catalog"
+    },
+    "image_url": {
+      "type": "string",
+      "title": "Food Photo URL",
+      "format": "uri"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "item_name",
+    "log_date"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

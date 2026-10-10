@@ -1,0 +1,133 @@
+{
+  "name": "DentistBrief",
+  "type": "object",
+  "title": "Dentist Brief",
+  "description": "A smile-progress brief a patient sends to their dentist from the dentist management view. Built from the patient's daily/weekly/monthly/yearly brief summary and delivered to the dentist's inbox. The dentist reads it via RLS on dentist_user_id.",
+  "properties": {
+    "patient_id": {
+      "type": "string",
+      "title": "Patient User ID"
+    },
+    "patient_email": {
+      "type": "string",
+      "title": "Patient Email",
+      "format": "email"
+    },
+    "patient_name": {
+      "type": "string",
+      "title": "Patient Display Name"
+    },
+    "dentist_id": {
+      "type": "string",
+      "title": "Dentist Profile ID"
+    },
+    "dentist_user_id": {
+      "type": "string",
+      "title": "Dentist User ID",
+      "description": "The dentist's User entity ID, used for RLS so the dentist can read briefs sent to them."
+    },
+    "dentist_name": {
+      "type": "string",
+      "title": "Dentist Display Name"
+    },
+    "brief_type": {
+      "type": "string",
+      "title": "Brief Type",
+      "enum": [
+        "daily",
+        "weekly",
+        "monthly",
+        "yearly"
+      ],
+      "default": "weekly"
+    },
+    "title": {
+      "type": "string",
+      "title": "Title"
+    },
+    "summary": {
+      "type": "string",
+      "title": "Summary",
+      "description": "Plain-text summary of the brief content delivered to the dentist.",
+      "maxLength": 2000
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "sent",
+        "read"
+      ],
+      "default": "sent"
+    },
+    "read_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Read Date"
+    }
+  },
+  "required": [
+    "patient_id",
+    "dentist_id",
+    "dentist_user_id",
+    "brief_type",
+    "title",
+    "summary"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.dentist_user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.dentist_user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "name": "Appointment",
+  "type": "object",
+  "title": "Appointment",
+  "properties": {
+    "dentist_id": {
+      "type": "string",
+      "title": "Dentist Profile ID"
+    },
+    "dentist_name": {
+      "type": "string",
+      "title": "Dentist / Clinic Name"
+    },
+    "patient_email": {
+      "type": "string",
+      "title": "Patient Email"
+    },
+    "requested_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Requested Date"
+    },
+    "requested_time": {
+      "type": "string",
+      "title": "Requested Time"
+    },
+    "reason": {
+      "type": "string",
+      "title": "Reason for Visit"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "pending",
+        "confirmed",
+        "completed",
+        "cancelled",
+        "postponed",
+        "missed"
+      ],
+      "default": "pending"
+    },
+    "patient_cancel_reason": {
+      "type": "string",
+      "title": "Patient Cancellation Reason",
+      "description": "The patient's explanation when they cannot attend an appointment. Dentists can see this but cannot comment on it.",
+      "maxLength": 500
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "maxLength": 1000
+    },
+    "treatment_type": {
+      "type": "string",
+      "title": "Treatment Type",
+      "description": "The primary procedure performed during the visit (recorded by the dentist when marking the appointment as completed).",
+      "enum": [
+        "checkup",
+        "cleaning",
+        "whitening",
+        "filling",
+        "extraction",
+        "root_canal",
+        "braces",
+        "aligners",
+        "crown",
+        "other"
+      ]
+    },
+    "teeth_treated": {
+      "type": "string",
+      "title": "Teeth Treated",
+      "description": "Which teeth were worked on, using FDI notation (e.g. '11, 21, 36') or a plain-language description (e.g. 'upper front teeth')."
+    },
+    "treatment_notes": {
+      "type": "string",
+      "title": "Treatment Notes",
+      "description": "The dentist's detailed notes on what was done during the visit.",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "dentist_id",
+    "requested_date"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.patient_email": "{{user.email}}"
+        },
+        {
+          "data.dentist_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.patient_email": "{{user.email}}"
+        },
+        {
+          "data.dentist_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

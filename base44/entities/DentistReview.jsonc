@@ -1,0 +1,142 @@
+{
+  "name": "DentistReview",
+  "type": "object",
+  "title": "Dentist Review",
+  "description": "A patient's request for a human dentist to review their AI scan. The dentist reviews the scan photos and AI findings, then writes a professional report. Bridges the AI-only scan with human clinical oversight (Toothpic-style human review tier).",
+  "properties": {
+    "scan_id": {
+      "type": "string",
+      "title": "Scan ID"
+    },
+    "patient_id": {
+      "type": "string",
+      "title": "Patient User ID"
+    },
+    "patient_email": {
+      "type": "string",
+      "title": "Patient Email"
+    },
+    "patient_name": {
+      "type": "string",
+      "title": "Patient Display Name"
+    },
+    "dentist_id": {
+      "type": "string",
+      "title": "Dentist Profile ID"
+    },
+    "dentist_user_id": {
+      "type": "string",
+      "title": "Dentist User ID",
+      "description": "The dentist's User entity ID, used for RLS so the dentist can read reviews assigned to them."
+    },
+    "dentist_name": {
+      "type": "string",
+      "title": "Dentist Display Name"
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "pending",
+        "reviewed",
+        "declined",
+        "cancelled"
+      ],
+      "default": "pending",
+      "description": "pending = awaiting dentist review; reviewed = dentist submitted their report; declined = dentist declined; cancelled = patient cancelled."
+    },
+    "patient_question": {
+      "type": "string",
+      "title": "Patient Question",
+      "description": "An optional question or concern the patient wants the dentist to address.",
+      "maxLength": 500
+    },
+    "dentist_report": {
+      "type": "string",
+      "title": "Dentist Report",
+      "description": "The dentist's professional review of the scan.",
+      "maxLength": 2000
+    },
+    "dentist_summary": {
+      "type": "string",
+      "title": "One-line Summary",
+      "description": "A short headline the patient sees before opening the full report.",
+      "maxLength": 200
+    },
+    "urgency": {
+      "type": "string",
+      "title": "Urgency",
+      "enum": [
+        "routine",
+        "soon",
+        "urgent"
+      ],
+      "default": "routine",
+      "description": "The dentist's urgency assessment: routine = no rush, soon = book within weeks, urgent = see a dentist promptly."
+    },
+    "reviewed_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Reviewed Date"
+    }
+  },
+  "required": [
+    "scan_id",
+    "patient_id",
+    "dentist_id",
+    "dentist_user_id",
+    "status"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "data.patient_id": "{{user.id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "data.patient_id": "{{user.id}}"
+        },
+        {
+          "data.dentist_user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.dentist_user_id": "{{user.id}}"
+        },
+        {
+          "data.patient_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

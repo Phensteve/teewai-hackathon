@@ -1,0 +1,41 @@
+{
+  "name": "Dentist Location On Save",
+  "description": "Geocode a clinic address once on creation or address change, never during directory reads.",
+  "trigger": {
+    "config": {
+      "trigger_type": "entity",
+      "entity_name": "DentistProfile",
+      "events": [
+        "create",
+        "update"
+      ]
+    },
+    "condition": "${ .trigger.event_type == \"create\" or .trigger.data.address != .trigger.old_data.address or .trigger.data.city != .trigger.old_data.city }"
+  },
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "dentist_location_on_save",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "save_location": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "geocodeDentistProfiles",
+            "args": {
+              "profileId": "${ .trigger.entity_id }"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Save clinic location",
+            "description": "Cache coordinates or mark no location"
+          }
+        }
+      }
+    ]
+  }
+}

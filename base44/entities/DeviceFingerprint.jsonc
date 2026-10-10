@@ -1,0 +1,51 @@
+{
+  "name": "DeviceFingerprint",
+  "type": "object",
+  "title": "Device Fingerprint",
+  "description": "A device fingerprint record for limiting free account creation to 3 per device. Combines canvas, WebGL, screen, and browser properties to identify a device across browsers.",
+  "properties": {
+    "device_hash": {
+      "type": "string",
+      "title": "Device Hash"
+    },
+    "user_id": {
+      "type": "string",
+      "title": "User ID"
+    },
+    "user_email": {
+      "type": "string",
+      "title": "User Email",
+      "format": "email"
+    },
+    "ip_address": {
+      "type": "string",
+      "title": "IP Address"
+    },
+    "is_paid": {
+      "type": "boolean",
+      "title": "Is Paid Account",
+      "default": false
+    }
+  },
+  "required": [
+    "device_hash"
+  ],
+  "rls": {
+    "create": null,
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

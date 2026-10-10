@@ -1,0 +1,157 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "The role of the user in the app",
+      "enum": [
+        "admin",
+        "user"
+      ]
+    },
+    "username": {
+      "type": "string",
+      "title": "Username",
+      "description": "Unique handle chosen at signup"
+    },
+    "display_name": {
+      "type": "string",
+      "title": "Display name"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First name"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last name"
+    },
+    "phone_number": {
+      "type": "string",
+      "title": "Phone number"
+    },
+    "how_found": {
+      "type": "string",
+      "title": "How they found teewai",
+      "enum": [
+        "friend",
+        "social",
+        "search",
+        "dentist",
+        "app_store",
+        "from_owner",
+        "other"
+      ]
+    },
+    "wears_appliance": {
+      "type": "boolean",
+      "title": "Wears braces or retainer",
+      "default": false
+    },
+    "appliance_type": {
+      "type": "string",
+      "title": "Appliance type",
+      "enum": [
+        "none",
+        "metal_braces",
+        "ceramic_braces",
+        "lingual_braces",
+        "clear_aligners",
+        "hawley_retainer",
+        "clear_retainer",
+        "fixed_retainer"
+      ],
+      "default": "none"
+    },
+    "account_status": {
+      "type": "string",
+      "title": "Account status",
+      "enum": [
+        "active",
+        "suspended",
+        "deleted"
+      ],
+      "default": "active"
+    },
+    "must_reset_password": {
+      "type": "boolean",
+      "title": "Must reset password",
+      "default": false
+    },
+    "leaderboard_opt_out": {
+      "type": "boolean",
+      "title": "Leaderboard opt-out",
+      "default": false
+    },
+    "country": {
+      "type": "string",
+      "title": "Country"
+    },
+    "state": {
+      "type": "string",
+      "title": "State / Province"
+    },
+    "city": {
+      "type": "string",
+      "title": "City / Town"
+    },
+    "is_official": {
+      "type": "boolean",
+      "title": "teewai official",
+      "description": "True for teewai staff who post official announcements. Independent of the Base44 admin role \u2014 only explicitly-flagged officials get the community Admin badge, so a regular user with an admin role is never mislabelled as an admin.",
+      "default": false
+    },
+    "is_verified": {
+      "type": "boolean",
+      "title": "Verified",
+      "default": false
+    },
+    "show_real_name": {
+      "type": "boolean",
+      "title": "Show real name in community",
+      "default": false
+    },
+    "is_verified_medical": {
+      "type": "boolean",
+      "title": "Verified medical professional",
+      "description": "True when the user passed teewai medical-credential verification. Verified clinicians may give medical advice in the Common Room and show a clinician badge.",
+      "default": false
+    },
+    "medical_profession": {
+      "type": "string",
+      "title": "Medical profession"
+    },
+    "medical_verification_id": {
+      "type": "string",
+      "title": "Medical verification record ID"
+    },
+    "baseline_scan_id": {
+      "type": "string",
+      "title": "Baseline scan ID",
+      "description": "The scan the user chose as their personal reference point. Progress is measured against this scan, not a generic ideal. Smart default: the user's first scan is set automatically."
+    },
+    "baseline_set_date": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Baseline set date"
+    },
+    "brief_read_states": {
+      "type": "string",
+      "title": "Brief read states",
+      "description": "JSON string mapping brief types to period keys the user has opened (read). Mirrored across devices so a brief read on one device doesn't pop on another."
+    },
+    "last_portal": {
+      "type": "string",
+      "title": "Last used portal",
+      "description": "Which portal a dual-role (patient + dentist) user was last on: 'patient' or 'dentist'. Used by the post-login resolver to return them to the right side without a role choice at login.",
+      "enum": [
+        "patient",
+        "dentist"
+      ]
+    }
+  },
+  "required": [
+    "role"
+  ]
+}

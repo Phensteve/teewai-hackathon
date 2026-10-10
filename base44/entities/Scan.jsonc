@@ -1,0 +1,544 @@
+{
+  "name": "Scan",
+  "type": "object",
+  "title": "Teeth Scan",
+  "properties": {
+    "image_url": {
+      "type": "string",
+      "title": "Teeth Photo",
+      "format": "uri"
+    },
+    "image_urls": {
+      "type": "array",
+      "title": "All Angle Photos",
+      "description": "For full (5-photo) scans: the front, upper, lower, left and right photo URLs in order.",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "scan_type": {
+      "type": "string",
+      "title": "Scan Type",
+      "description": "quick = single photo (1 scan credit), full = 5-angle composite (3 scan credits).",
+      "enum": [
+        "quick",
+        "full"
+      ],
+      "default": "quick"
+    },
+    "capture_position": {
+      "type": "string",
+      "title": "Capture Position",
+      "enum": [
+        "front",
+        "top",
+        "lower",
+        "left",
+        "right"
+      ],
+      "default": "front"
+    },
+    "scan_mode": {
+      "type": "string",
+      "title": "Scan Mode",
+      "enum": [
+        "teeth",
+        "braces"
+      ],
+      "default": "teeth"
+    },
+    "score": {
+      "type": "number",
+      "title": "Whiteness Score",
+      "description": "0-100, higher is whiter"
+    },
+    "shade": {
+      "type": "string",
+      "title": "Shade Label"
+    },
+    "shade_code": {
+      "type": "string",
+      "title": "VITA Shade Code"
+    },
+    "artificial_whitening_detected": {
+      "type": "boolean",
+      "title": "Artificial Whitening Detected",
+      "description": "True when the scan matched a VITA Bleached shade (0M1-0M3), indicating the user has undergone professional / artificial whitening.",
+      "default": false
+    },
+    "color_correcting_product_detected": {
+      "type": "boolean",
+      "title": "Color Correcting Product Detected",
+      "description": "True when a violet cast from a purple whitening strip or serum was detected on the tooth regions. The shade readings are optically distorted and do not reflect the true shade. Flagged scans are excluded from baseline and progress deltas.",
+      "default": false
+    },
+    "violet_cast_confidence": {
+      "type": "number",
+      "title": "Violet Cast Confidence",
+      "description": "0-1 confidence that a color correcting product (purple strip or serum) was present. Only meaningful when color_correcting_product_detected is true.",
+      "default": 0
+    },
+    "brightness": {
+      "type": "number",
+      "title": "Brightness Level"
+    },
+    "stains_detected": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Stains Detected"
+    },
+    "stain_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Stain Types",
+      "description": "Identified stain sources: coffee, tea, wine, tobacco, etc."
+    },
+    "stain_severity_per_type": {
+      "type": "object",
+      "title": "Stain Severity Per Type",
+      "description": "Per-stain severity from the AI, e.g. { \"coffee\": \"mild\", \"tea\": \"moderate\" }.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "stain_breakdown": {
+      "type": "array",
+      "title": "Stain Breakdown",
+      "description": "Professional per-element stain chemistry breakdown (chromogen/tannin/acid/intrinsic/biofilm, severity, sources, explanation, mitigation), persisted for the Results stain analysis.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "chemistry": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "severity": {
+            "type": "string"
+          },
+          "sources": {
+            "type": "string"
+          },
+          "explain": {
+            "type": "string"
+          },
+          "mitigate": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "smile_zone_score": {
+      "type": "number",
+      "title": "Smile Zone Score",
+      "description": "0-100, front 6 teeth weighted"
+    },
+    "smile_zone_shade": {
+      "type": "string",
+      "title": "Smile Zone Shade"
+    },
+    "whitening_potential_score": {
+      "type": "number",
+      "title": "Whitening Potential Score",
+      "description": "0-100, realistic target after treatment"
+    },
+    "whitening_potential_shade": {
+      "type": "string",
+      "title": "Whitening Potential Shade"
+    },
+    "whitening_potential_shade_code": {
+      "type": "string",
+      "title": "Whitening Potential Shade Code"
+    },
+    "weeks_to_potential": {
+      "type": "number",
+      "title": "Weeks to Potential"
+    },
+    "whitening_filter_intensity": {
+      "type": "number",
+      "title": "Instant Whitening Filter Intensity",
+      "description": "0-100, recommended calibrated filter strength for a realistic instant-whitening preview"
+    },
+    "color_temperature": {
+      "type": "string",
+      "title": "Color Temperature",
+      "enum": [
+        "warm",
+        "neutral",
+        "cool"
+      ]
+    },
+    "per_tooth_whitening_targets": {
+      "type": "array",
+      "title": "Per-Tooth Whitening Targets",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tooth_id": {
+            "type": "string",
+            "title": "Tooth ID"
+          },
+          "current_shade": {
+            "type": "string",
+            "title": "Current Shade"
+          },
+          "target_shade": {
+            "type": "string",
+            "title": "Target Shade"
+          },
+          "weeks": {
+            "type": "number",
+            "title": "Weeks to Target"
+          }
+        }
+      }
+    },
+    "smile_trait": {
+      "type": "string",
+      "title": "Secret Smile Trait",
+      "description": "Surprise unlockable trait discovered per scan"
+    },
+    "dental_health_score": {
+      "type": "number",
+      "title": "Dental Health Score",
+      "description": "0-100, higher is healthier"
+    },
+    "gum_health": {
+      "type": "string",
+      "title": "Gum Health",
+      "enum": [
+        "excellent",
+        "good",
+        "fair",
+        "poor"
+      ]
+    },
+    "plaque_level": {
+      "type": "string",
+      "title": "Plaque Level",
+      "enum": [
+        "none",
+        "minimal",
+        "moderate",
+        "heavy"
+      ]
+    },
+    "enamel_condition": {
+      "type": "string",
+      "title": "Enamel Condition"
+    },
+    "dental_health_issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Dental Health Issues"
+    },
+    "tooth_analysis": {
+      "type": "array",
+      "title": "Per-Tooth Analysis",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tooth_id": {
+            "type": "string",
+            "title": "Tooth ID"
+          },
+          "tooth_type": {
+            "type": "string",
+            "title": "Tooth Type",
+            "enum": [
+              "incisor",
+              "canine",
+              "premolar",
+              "molar"
+            ]
+          },
+          "health_score": {
+            "type": "number",
+            "title": "Health Score"
+          },
+          "whiteness_score": {
+            "type": "number",
+            "title": "Whiteness Score"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Conditions"
+          },
+          "color_segments": {
+            "type": "array",
+            "title": "Color Segments",
+            "items": {
+              "type": "object",
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "title": "Area"
+                },
+                "health": {
+                  "type": "string",
+                  "title": "Health Level",
+                  "enum": [
+                    "pristine",
+                    "luminous",
+                    "radiant",
+                    "excellent",
+                    "bright",
+                    "very_good",
+                    "clear",
+                    "gleaming",
+                    "good",
+                    "decent",
+                    "fresh",
+                    "fair",
+                    "muted",
+                    "steady",
+                    "mediocre",
+                    "dull",
+                    "weathered",
+                    "poor",
+                    "fading",
+                    "bad",
+                    "stained",
+                    "rough",
+                    "critical",
+                    "harsh",
+                    "severe"
+                  ]
+                },
+                "note": {
+                  "type": "string",
+                  "title": "Note"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "reference_material_detected": {
+      "type": "boolean",
+      "title": "Reference Material Detected",
+      "default": false
+    },
+    "reference_material_note": {
+      "type": "string",
+      "title": "Reference Material Note"
+    },
+    "recommendations": {
+      "type": "array",
+      "title": "Recommendations",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "method": {
+            "type": "string"
+          },
+          "frequency": {
+            "type": "string"
+          },
+          "impact": {
+            "type": "string",
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          }
+        }
+      }
+    },
+    "products": {
+      "type": "array",
+      "title": "Product Recommendations",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "active_ingredient": {
+            "type": "string"
+          },
+          "price_range": {
+            "type": "string"
+          },
+          "why": {
+            "type": "string"
+          },
+          "where_to_buy": {
+            "type": "string"
+          },
+          "budget_tier": {
+            "type": "string",
+            "enum": [
+              "budget",
+              "mid",
+              "premium"
+            ]
+          }
+        }
+      }
+    },
+    "dentist_id": {
+      "type": "string",
+      "title": "Linked Dentist ID"
+    },
+    "patient_email": {
+      "type": "string",
+      "title": "Patient Email"
+    },
+    "scan_for": {
+      "type": "string",
+      "title": "Scanned for",
+      "description": "The family member name when a family owner scans for a child/dependent (kid account). Null when scanning for yourself."
+    },
+    "needs_another_photo": {
+      "type": "boolean",
+      "title": "Needs Another Photo",
+      "default": false
+    },
+    "ai_feedback": {
+      "type": "string",
+      "title": "AI Feedback"
+    },
+    "gamification": {
+      "type": "object",
+      "title": "Gamification Result",
+      "description": "Server-computed reward, trait, MMR and milestones for this scan (enables client polling after a dropped connection)",
+      "properties": {
+        "reward": {
+          "type": "object"
+        },
+        "trait": {
+          "type": "object"
+        },
+        "milestones": {
+          "type": "array"
+        },
+        "mmr": {
+          "type": "number"
+        },
+        "rank": {
+          "type": "object"
+        },
+        "prevRank": {
+          "type": "object"
+        },
+        "isFirst": {
+          "type": "boolean"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "enum": [
+        "analyzing",
+        "completed"
+      ],
+      "default": "completed"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "image_url"
+  ],
+  "rls": {
+    "create": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.patient_email": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.patient_email": "{{user.email}}"
+        },
+        {
+          "data.dentist_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.patient_email": "{{user.email}}"
+        },
+        {
+          "data.dentist_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.patient_email": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

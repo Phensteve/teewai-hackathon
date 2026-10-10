@@ -1,0 +1,45 @@
+{
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "daily_scan_reminder",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "remind": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "dailyScanReminder",
+            "args": {}
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Send streak-keeper reminders",
+            "description": "Email users who haven't scanned today"
+          }
+        }
+      }
+    ]
+  },
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 9 * * *",
+      "one_time_date": null,
+      "timezone": "Africa/Lagos",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "description": "Emails registered users who have scanned before but not today so their streak stays alive. Runs daily at 9am Africa/Lagos.",
+  "name": "Daily Scan Reminder"
+}

@@ -1,0 +1,63 @@
+{
+  "name": "DentalCoverage",
+  "type": "object",
+  "title": "Dental Coverage Cell",
+  "description": "Tracks which grid cells have been ingested into the dental index and when they need a refresh.",
+  "properties": {
+    "cell": {
+      "type": "string",
+      "title": "Grid Cell"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "ready",
+        "failed"
+      ],
+      "default": "pending",
+      "title": "Status"
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Ingested At"
+    },
+    "unit_count": {
+      "type": "number",
+      "default": 0,
+      "title": "Units Found"
+    },
+    "attempts": {
+      "type": "number",
+      "default": 0,
+      "title": "Attempts"
+    }
+  },
+  "required": [
+    "cell",
+    "status"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

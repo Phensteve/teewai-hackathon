@@ -1,0 +1,43 @@
+{
+  "name": "GuestScan",
+  "type": "object",
+  "title": "Guest Scan",
+  "description": "A record that a no-sign (guest) free scan was taken on the Free Scan page. Captures only the device hash, IP, and timestamp \u2014 not the scan result \u2014 so admins can see who is using the guest scan feature. One record per completed guest scan.",
+  "properties": {
+    "device_hash": {
+      "type": "string",
+      "title": "Device Hash"
+    },
+    "ip_address": {
+      "type": "string",
+      "title": "IP Address"
+    },
+    "scanned_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Scanned At"
+    }
+  },
+  "required": [
+    "device_hash",
+    "scanned_at"
+  ],
+  "rls": {
+    "create": null,
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
