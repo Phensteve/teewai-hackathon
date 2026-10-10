@@ -13,7 +13,7 @@ import { authPageLink, rememberAuthDestination } from '@/lib/authNavigation';
 import ExistingAccountNotice from '@/components/auth/ExistingAccountNotice';
 import { beginGoogleAuth, googleAuthError, isExistingAccountError } from '@/lib/googleAuthFlow';
 import GoogleIcon from "@/components/GoogleIcon";
-import SelectSheet from "@/components/SelectSheet";
+
 import { userProfile } from "@/lib/insforgeDb";
 import { toast } from "@/components/ui/use-toast";
 import { isNativeApp } from "@/lib/isNativeApp";
@@ -542,14 +542,17 @@ export default function Register() {
               </div>
               <div className="space-y-1.5 sm:space-y-2">
                 <Label htmlFor="howFound">How did you find out about us? <span className="text-muted-foreground/60 normal-case font-normal">(optional)</span></Label>
-                <SelectSheet
+                <select
                   id="howFound"
                   value={howFound}
-                  onChange={setHowFound}
-                  options={HOW_FOUND_OPTIONS}
-                  title="How did you find us?"
-                  className="h-11 sm:h-12"
-                />
+                  onChange={(e) => setHowFound(e.target.value)}
+                  className="h-11 sm:h-12 w-full rounded-lg border border-input bg-background px-3 text-base"
+                >
+                  <option value="">Select…</option>
+                  {HOW_FOUND_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value}>{o.label}</option>
+                  ))}
+                </select>
                 <p className="text-xs text-muted-foreground">You can update all of this anytime in the app.</p>
                 </div>
                 <div className="pt-1">
