@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400" role="img" aria-label="Teewai AI dental scan animation">
+  <defs>
+    <radialGradient id="hs-bg" cx="50%" cy="48%" r="62%">
+      <stop offset="0%" stop-color="#0a3a36"/>
+      <stop offset="100%" stop-color="#06120f"/>
+    </radialGradient>
+    <linearGradient id="hs-beam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2ee6c4" stop-opacity="0"/>
+      <stop offset="48%" stop-color="#2ee6c4" stop-opacity="0.85"/>
+      <stop offset="52%" stop-color="#2ee6c4" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#2ee6c4" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="hs-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="400" fill="url(#hs-bg)"/>
+
+  <!-- corner nodes -->
+  <g fill="#2ee6c4">
+    <circle cx="120" cy="80" r="4"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.4s" repeatCount="indefinite"/></circle>
+    <circle cx="680" cy="80" r="4"><animate attributeName="opacity" values="1;0.2;1" dur="2.4s" repeatCount="indefinite"/></circle>
+    <circle cx="120" cy="320" r="4"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.8s" begin="0.6s" repeatCount="indefinite"/></circle>
+    <circle cx="680" cy="320" r="4"><animate attributeName="opacity" values="1;0.2;1" dur="2.8s" begin="0.6s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- center scanner -->
+  <g transform="translate(400 200)">
+    <!-- rotating dashed rings -->
+    <circle r="120" fill="none" stroke="#2ee6c4" stroke-opacity="0.22" stroke-width="2"/>
+    <g>
+      <circle r="120" fill="none" stroke="#2ee6c4" stroke-width="2" stroke-dasharray="22 34"/>
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="16s" repeatCount="indefinite"/>
+    </g>
+    <g>
+      <circle r="92" fill="none" stroke="#2ee6c4" stroke-opacity="0.18" stroke-width="1.5" stroke-dasharray="6 14"/>
+      <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="10s" repeatCount="indefinite"/>
+    </g>
+
+    <!-- pulsing radar rings -->
+    <circle r="58" fill="none" stroke="#2ee6c4" stroke-width="2">
+      <animate attributeName="r" values="58;128" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="stroke-opacity" values="0.55;0" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="58" fill="none" stroke="#2ee6c4" stroke-width="2">
+      <animate attributeName="r" values="58;128" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+      <animate attributeName="stroke-opacity" values="0.55;0" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- tooth (glow + crisp) -->
+    <g filter="url(#hs-glow)">
+      <path d="M0,-56 C-23,-56 -36,-41 -36,-22 C-36,-5 -27,13 -18,31 C-13,41 -5,41 -3,33 C-1,25 -1,17 0,17 C1,17 1,25 3,33 C5,41 13,41 18,31 C27,13 36,-5 36,-22 C36,-41 23,-56 0,-56 Z" fill="#ffffff" opacity="0.95"/>
+    </g>
+    <path d="M0,-56 C-23,-56 -36,-41 -36,-22 C-36,-5 -27,13 -18,31 C-13,41 -5,41 -3,33 C-1,25 -1,17 0,17 C1,17 1,25 3,33 C5,41 13,41 18,31 C27,13 36,-5 36,-22 C36,-41 23,-56 0,-56 Z" fill="none" stroke="#2ee6c4" stroke-width="1.4" opacity="0.65"/>
+
+    <!-- measurement nodes on tooth -->
+    <circle cx="-14" cy="-18" r="3" fill="#2ee6c4"><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite"/></circle>
+    <circle cx="16" cy="-8" r="3" fill="#2ee6c4"><animate attributeName="opacity" values="1;0.3;1" dur="1.8s" repeatCount="indefinite"/></circle>
+    <circle cx="2" cy="20" r="3" fill="#2ee6c4"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.2s" begin="0.5s" repeatCount="indefinite"/></circle>
+  </g>
+
+  <!-- vertical scan beam -->
+  <rect x="250" y="110" width="300" height="180" fill="url(#hs-beam)" opacity="0.55">
+    <animate attributeName="y" values="110;290;110" dur="3.6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0;0.6;0" dur="3.6s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- wordmark -->
+  <text x="400" y="368" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#ffffff" font-weight="700" letter-spacing="2">TEEWAI</text>
+  <text x="400" y="390" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#9fd8cc" letter-spacing="4">AI DENTAL WHITENESS SCAN</text>
+</svg>

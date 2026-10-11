@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Teewai — One Page Project Description</title>
+<link rel="icon" href="https://media.base44.com/images/public/6a6611b97d7894c19d798137/2a0cc9f43_logo.png" />
+<style>
+  :root {
+    --olo: #0d9f8e;
+    --olo-deep: #06120f;
+    --olo-glow: #2ee6c4;
+    --ink: #0a1f1f;
+    --muted: #5b7370;
+    --line: #d8e6e3;
+    --bg: #f4fbfa;
+  }
+  @page { size: A4; margin: 14mm 14mm 12mm 14mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { background: var(--bg); color: var(--ink); }
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 10pt; line-height: 1.5;
+  }
+  .serif { font-family: "Recoleta", Georgia, "Times New Roman", serif; }
+  .page { width: 182mm; min-height: 273mm; margin: 0 auto; display: flex; flex-direction: column; }
+
+  /* Header */
+  header { display: flex; align-items: center; gap: 12px; padding-bottom: 10px; border-bottom: 2px solid var(--olo); margin-bottom: 12px; }
+  header img { width: 38px; height: 38px; border-radius: 9px; }
+  .brand { display: flex; flex-direction: column; }
+  .brand .name { font-size: 20pt; font-weight: 700; letter-spacing: -0.02em; color: var(--olo-deep); }
+  .brand .tag { font-size: 8.5pt; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+  .doc-label { margin-left: auto; text-align: right; }
+  .doc-label .t { font-size: 8pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; }
+  .doc-label .d { font-size: 9pt; color: var(--ink); font-weight: 600; }
+
+  /* Title */
+  h1.title { font-size: 19pt; font-weight: 700; color: var(--olo-deep); margin-bottom: 4px; }
+  .lede { font-size: 10.5pt; color: var(--muted); margin-bottom: 14px; max-width: 150mm; }
+
+  h2 { font-size: 12pt; font-weight: 700; color: var(--olo-deep); margin: 14px 0 8px; display: flex; align-items: center; gap: 8px; }
+  h2::before { content: ""; width: 18px; height: 3px; border-radius: 3px; background: var(--olo); display: inline-block; }
+
+  /* Purpose */
+  .purpose { font-size: 10pt; color: var(--ink); }
+  .purpose p + p { margin-top: 6px; }
+
+  /* Features grid */
+  .features { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 10px; margin-top: 4px; }
+  .feat { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: #fff; }
+  .feat .h { display: flex; align-items: center; gap: 7px; font-weight: 700; font-size: 9.5pt; color: var(--olo-deep); }
+  .feat .h .dot { width: 16px; height: 16px; border-radius: 5px; background: var(--olo); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 9pt; font-weight: 700; flex: none; }
+  .feat p { font-size: 8.8pt; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+
+  /* How it works */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 4px; }
+  .step { position: relative; padding: 9px 10px 9px 30px; border-radius: 8px; background: linear-gradient(180deg, #fff, #eef8f5); border: 1px solid var(--line); }
+  .step .n { position: absolute; left: 8px; top: 8px; width: 18px; height: 18px; border-radius: 50%; background: var(--olo-deep); color: var(--olo-glow); font-size: 8.5pt; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .step .st { font-weight: 700; font-size: 9.5pt; color: var(--olo-deep); }
+  .step p { font-size: 8.6pt; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+
+  /* Impact strip */
+  .impact { margin-top: 12px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .stat { text-align: center; padding: 8px 4px; border-radius: 8px; background: var(--olo-deep); color: #fff; }
+  .stat .v { font-size: 16pt; font-weight: 700; color: var(--olo-glow); }
+  .stat .l { font-size: 7.6pt; color: #bfeee7; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 1px; }
+
+  /* Tech */
+  .tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .chip { font-size: 8.6pt; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--olo); color: var(--olo-deep); background: #eafaf6; font-weight: 600; }
+
+  footer { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; font-size: 8pt; color: var(--muted); }
+  footer .tag { color: var(--olo); font-weight: 600; }
+
+  @media print { body { background: #fff; } .page { width: auto; } }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <img src="https://media.base44.com/images/public/6a6611b97d7894c19d798137/2a0cc9f43_logo.png" alt="Teewai logo" />
+      <div class="brand">
+        <span class="name serif">Teewai</span>
+        <span class="tag">AI Dental Whiteness Companion</span>
+      </div>
+      <div class="doc-label">
+        <div class="t">Project Description</div>
+        <div class="d">One-pager</div>
+      </div>
+    </header>
+
+    <h1 class="title serif">A 0-to-100 whiteness index from a single tooth photo.</h1>
+    <p class="lede">Teewai is an AI-powered dental health app that turns a smartphone photo of your teeth into an instant, clinically-inspired whiteness reading — and tracks how your daily diet stains your enamel over time.</p>
+
+    <h2 class="serif">Purpose</h2>
+    <div class="purpose">
+      <p>Professional shade assessment is expensive, subjective, and rarely accessible between dental visits. Teewai democratizes it: a single photo is analyzed with computer vision and mapped to the VITA shade guide, giving everyone a free, repeatable 0–100 whiteness score they can track like a wellness metric.</p>
+      <p>Beyond a number, Teewai connects the score to its cause — logging the chromogenic, tannin, and acid load of what you eat and drink — so users see exactly which habits brighten or stain their smile, and can act on it.</p>
+    </div>
+
+    <h2 class="serif">Key Features</h2>
+    <div class="features">
+      <div class="feat"><div class="h"><span class="dot">1</span>0–100 Whiteness Index</div><p>A single, trackable score derived from enamel color analysis — the dental equivalent of a step count.</p></div>
+      <div class="feat"><div class="h"><span class="dot">2</span>VITA Shade Mapping</div><p>Each scan is matched to the clinical VITA classical shade scale, bridging AI output and dentist language.</p></div>
+      <div class="feat"><div class="h"><span class="dot">3</span>Dietary Stain Tracking</div><p>Log meals to see chromogenic, tannin, and acid loads and how they nudge your shade up or down.</p></div>
+      <div class="feat"><div class="h"><span class="dot">4</span>AI Care Plan</div><p>Personalized, plain-language recommendations to protect and improve whiteness between visits.</p></div>
+      <div class="feat"><div class="h"><span class="dot">5</span>Scan History & Trends</div><p>Every scan is saved with its photo, score, and shade, so progress is visible over days and weeks.</p></div>
+      <div class="feat"><div class="h"><span class="dot">6</span>Private by Default</div><p>Photos are stored privately and processed securely — your smile never becomes public content.</p></div>
+    </div>
+
+    <h2 class="serif">How It Works</h2>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><div class="st">Snap</div><p>Capture a well-lit photo of your front teeth with any phone camera.</p></div>
+      <div class="step"><span class="n">2</span><div class="st">Analyze</div><p>Computer vision reads enamel color and maps it to a VITA shade and a 0–100 score.</p></div>
+      <div class="step"><span class="n">3</span><div class="st">Track</div><p>Log diet, follow your care plan, and watch your whiteness trend improve over time.</p></div>
+    </div>
+
+    <div class="impact">
+      <div class="stat"><div class="v">0–100</div><div class="l">Whiteness Score</div></div>
+      <div class="stat"><div class="v">16</div><div class="l">VITA Shades</div></div>
+      <div class="stat"><div class="v">3</div><div class="l">Stain Factors</div></div>
+      <div class="stat"><div class="v">1</div><div class="l">Photo Needed</div></div>
+    </div>
+
+    <h2 class="serif">Built With</h2>
+    <div class="tech">
+      <span class="chip">React</span>
+      <span class="chip">Tailwind CSS</span>
+      <span class="chip">Vite</span>
+      <span class="chip">Computer Vision</span>
+      <span class="chip">VITA Shade Guide</span>
+      <span class="chip">NVIDIA AI Vision</span>
+    </div>
+
+    <footer>
+      <span>Teewai — your smile, measured.</span>
+      <span class="tag">teewai.app</span>
+    </footer>
+  </div>
+</body>
+</html>
