@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🦷 Teewai
+# 🦷 teewai
 
 **AI-powered oral care companion — a 0-to-100 smile score from a single photo.**
 
