@@ -9,7 +9,7 @@
 ![React](https://img.shields.io/badge/React-18-61dafb?logo=react&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38bdf8?logo=tailwindcss&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-⚡-646cff?logo=vite&logoColor=white)
-![Computer Vision](https://img.shields.io/badge/Computer_Vision-AI-2ee6c4)
+![Google Gemini](https://img.shields.io/badge/Google_Gemini-3_Flash-4285f4?logo=google&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-0d9f8e)
 
 </div>
@@ -48,15 +48,14 @@ photo of teeth     vision reads enamel      log diet, follow plan,
 ```
 
 1. **Snap** — Capture a well-lit photo of your front teeth with any phone camera.
-2. **Analyze** — Computer vision reads enamel color and maps it to a VITA shade and a 0–100 score.
+2. **Analyze** — Gemini vision reads enamel color and maps it to a VITA shade and a 0–100 score.
 3. **Track** — Log diet, follow your care plan, and watch your whiteness trend improve over time.
 
 ## 🧰 Tech Stack
 
 - **Frontend:** React 18 + Tailwind CSS + Vite
-- **AI Vision:** Computer-vision enamel color analysis
+- **AI Vision:** Google Gemini 3 Flash multimodal vision (via Base44 InvokeLLM)
 - **Shade System:** VITA classical shade guide
-- **AI Inference:** NVIDIA AI vision models
 - **Storage:** Private, per-user photo storage
 
 ## 📦 Getting Started
