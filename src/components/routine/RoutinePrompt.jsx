@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Sparkles, RefreshCw, Check, Loader2, X } from 'lucide-react';
+import { ClipboardList, RefreshCw, Check, Loader2, X } from 'lucide-react';
 
 // Post-scan prompt: after viewing scan results, the user can either generate
 // a fresh routine from the new scan or keep their existing one. Shown when
@@ -44,7 +44,7 @@ export default function RoutinePrompt({ scan, routine, onGenerate, onDismiss }) 
     <div className="mb-4 p-4 rounded-2xl border border-olo/20 bg-gradient-to-br from-olo/8 to-card animate-fade-up">
       <div className="flex items-start gap-3">
         <div className="w-9 h-9 rounded-xl bg-olo/15 flex items-center justify-center flex-shrink-0">
-          <Sparkles className="w-4.5 h-4.5 text-olo" />
+          <ClipboardList className="w-4.5 h-4.5 text-olo" />
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-heading font-600">

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Camera, Sparkles, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Camera, ScanLine, ShieldCheck, ArrowRight } from 'lucide-react';
 import Logo from '@/components/Logo';
 
 export default function Landing() {
@@ -26,7 +26,7 @@ export default function Landing() {
         {/* Hero */}
         <div className="flex flex-1 flex-col items-center justify-center py-16 text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-olo/20 bg-olo/5 px-4 py-1.5 text-caption font-medium text-olo">
-            <Sparkles className="h-3.5 w-3.5" />
+            <ScanLine className="h-3.5 w-3.5" />
             AI dental scan in seconds
           </div>
           <h1 className="font-heading text-4xl font-700 leading-tight tracking-tight sm:text-5xl">
@@ -58,7 +58,7 @@ export default function Landing() {
           <div className="mt-16 grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
             {[
               { icon: Camera, title: 'Snap a photo', desc: 'A quick close-up is all it takes.' },
-              { icon: Sparkles, title: 'AI analysis', desc: 'Whiteness, health and a care plan.' },
+              { icon: ScanLine, title: 'AI analysis', desc: 'Whiteness, health and a care plan.' },
               { icon: ShieldCheck, title: 'Private', desc: 'Your photos stay yours, always.' },
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="rounded-2xl border border-border bg-card p-5 text-left">

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Loader2, AlertCircle, Brush, Heart, Sparkles, RotateCcw } from 'lucide-react';
+import { ArrowLeft, Loader2, AlertCircle, Brush, Heart, RotateCcw } from 'lucide-react';
 import { scans as insforgeScans } from '@/lib/insforgeDb';
 import { useScanPhoto } from '@/hooks/use-scan-photo';
 
@@ -145,7 +145,7 @@ export default function Results() {
       {recommendations.length > 0 && (
         <div className="rounded-2xl border border-border bg-card p-4">
           <div className="mb-3 flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-olo" />
+            <Brush className="h-4 w-4 text-olo" />
             <p className="font-heading text-sm font-600">Your care plan</p>
           </div>
           <div className="space-y-3">

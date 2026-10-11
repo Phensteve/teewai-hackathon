@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Camera, TrendingUp, History, ArrowRight, Loader2, Sparkles } from 'lucide-react';
+import { Camera, TrendingUp, History, ArrowRight, Loader2 } from 'lucide-react';
 import { scans as insforgeScans } from '@/lib/insforgeDb';
 import { useScanPhotos } from '@/hooks/use-scan-photo';
 import { useAuth } from '@/lib/AuthContext';
@@ -108,7 +108,7 @@ export default function Dashboard() {
             className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border bg-card p-8 text-center transition-colors hover:bg-muted/40"
           >
             <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-olo/10 text-olo">
-              <Sparkles className="h-6 w-6" />
+              <Camera className="h-6 w-6" />
             </span>
             <p className="font-heading text-sm font-600">No scans yet</p>
             <p className="text-caption text-muted-foreground">Take your first scan to see your smile score.</p>
