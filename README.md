@@ -2,7 +2,7 @@
 
 # 🦷 Teewai
 
-**AI-powered dental whiteness companion — a 0-to-100 smile score from a single photo.**
+**AI-powered oral care companion — a 0-to-100 smile score from a single photo.**
 
 ![Teewai Scan](./assets/hero-scan.svg)
 
